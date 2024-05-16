@@ -1,0 +1,41 @@
+<!-- views/reports.ejs -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reports</title>
+</head>
+<body>
+  <h1>Reports</h1>
+  <form action="/reports/hours" method="get">
+    <div>
+      <label for="period">Period:</label>
+      <select name="period" required>
+        <option value="daily">Daily</option>
+        <option value="weekly">Weekly</option>
+        <option value="monthly">Monthly</option>
+      </select>
+    </div>
+    <button type="submit">Generate Report</button>
+  </form>
+  <% if (report) { %>
+    <table>
+      <thead>
+        <tr>
+          <th>Project</th>
+          <th>Period</th>
+          <th>Hours Worked</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% report.forEach(row => { %>
+          <tr>
+            <td><%= row.project_id %></td>
+            <td><%= period === 'daily' ? row.date : (period === 'weekly' ? row.week : row.month) %></td>
+            <td><%= row.hours %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } %>
+</body>
+</html>

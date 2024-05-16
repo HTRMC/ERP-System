@@ -1,0 +1,27 @@
+<!-- views/users.ejs -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Users</title>
+</head>
+<body>
+  <h1>Users</h1>
+  <ul>
+    <% users.forEach(user => { %>
+      <li>
+        <%= user.name %> - <%= user.role %>
+        <% if (req.user.role === 'admin') { %>
+          <form action="/users/<%= user.id %>/permissions" method="post" style="display:inline;">
+            <select name="role">
+              <option value="employee" <%= user.role === 'employee' ? 'selected' : '' %>>Employee</option>
+              <option value="manager" <%= user.role === 'manager' ? 'selected' : '' %>>Manager</option>
+              <option value="admin" <%= user.role === 'admin' ? 'selected' : '' %>>Admin</option>
+            </select>
+            <button type="submit">Update</button>
+          </form>
+        <% } %>
+      </li>
+    <% }) %>
+  </ul>
+</body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "name": "erp-system",
+  "version": "1.0.0",
+  "description": "- **Technologies:** \r   - Backend: Node.js with Express.js framework\r   - Database: MySQL 12\r   - Frontend: EJS templates\r   - Authentication: Passport.js for local authentication, bcrypt for password hashing, and two-factor authentication (2FA)\r   - Graphs: Chart.js for displaying hours worked\r   - PDF Generation: pdfkit for generating invoices\r   - Email Notifications: Nodemailer",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "chart.js": "^4.4.2",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "mysql2": "^3.9.7",
+    "nodemailer": "^6.9.13",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
+    "pdfkit": "^0.15.0"
+  }
+}
