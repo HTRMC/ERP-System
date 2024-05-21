@@ -9,11 +9,9 @@ const projectRoutes = require('./routes/projectRoutes');
 const userRoutes = require('./routes/userRoutes');
 const clockRoutes = require('./routes/clockRoutes');
 const reportRoutes = require('./routes/reportRoutes');
+const dashboardRoutes = require('./routes/dashboardRoutes');
 
 dotenv.config();
-
-console.log('DB_USER:', process.env.DB_USER);
-console.log('DB_PASSWORD:', process.env.DB_PASSWORD);
 
 const app = express();
 
@@ -35,6 +33,7 @@ app.use('/projects', projectRoutes);
 app.use('/users', userRoutes);
 app.use('/clock', clockRoutes);
 app.use('/reports', reportRoutes);
+app.use('/dashboard', dashboardRoutes);
 
 app.get('/', (req, res) => {
   res.render('index');

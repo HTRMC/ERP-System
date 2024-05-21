@@ -1,4 +1,3 @@
-<!-- views/users.ejs -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,12 +9,12 @@
     <% users.forEach(user => { %>
       <li>
         <%= user.name %> - <%= user.role %>
-        <% if (req.user.role === 'admin') { %>
+        <% if (user.role_id === 3) { %> <!-- Only admins can update roles -->
           <form action="/users/<%= user.id %>/permissions" method="post" style="display:inline;">
-            <select name="role">
-              <option value="employee" <%= user.role === 'employee' ? 'selected' : '' %>>Employee</option>
-              <option value="manager" <%= user.role === 'manager' ? 'selected' : '' %>>Manager</option>
-              <option value="admin" <%= user.role === 'admin' ? 'selected' : '' %>>Admin</option>
+            <select name="role_id">
+              <option value="1" <%= user.role_id === 1 ? 'selected' : '' %>>Employee</option>
+              <option value="2" <%= user.role_id === 2 ? 'selected' : '' %>>Manager</option>
+              <option value="3" <%= user.role_id === 3 ? 'selected' : '' %>>Admin</option>
             </select>
             <button type="submit">Update</button>
           </form>

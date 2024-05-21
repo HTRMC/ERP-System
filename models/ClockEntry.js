@@ -28,7 +28,10 @@ class ClockEntry {
       query = 'SELECT project_id, YEARWEEK(clock_in_time) as week, SUM(TIMESTAMPDIFF(HOUR, clock_in_time, clock_out_time)) as hours FROM clock_entries WHERE user_id = ? GROUP BY project_id, YEARWEEK(clock_in_time)';
     } else if (period === 'monthly') {
       query = 'SELECT project_id, MONTH(clock_in_time) as month, SUM(TIMESTAMPDIFF(HOUR, clock_in_time, clock_out_time)) as hours FROM clock_entries WHERE user_id = ? GROUP BY project_id, MONTH(clock_in_time)';
+    } else {
+      throw new Error('Invalid period');
     }
+
     const [rows] = await db.query(query, [userId]);
     return rows;
   }

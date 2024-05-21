@@ -1,5 +1,15 @@
 // controllers/clockController.js
 const db = require('../config/db');
+const Project = require('../models/Project');
+
+exports.renderClockPage = async (req, res) => {
+  try {
+    const projects = await Project.findAll();
+    res.render('clock', { projects, user: req.user });
+  } catch (err) {
+    res.status(500).send('Server error');
+  }
+};
 
 exports.clockIn = async (req, res) => {
   const { project_id } = req.body;
@@ -22,3 +32,5 @@ exports.clockOut = async (req, res) => {
     res.status(500).send('Server error');
   }
 };
+
+

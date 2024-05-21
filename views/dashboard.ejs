@@ -9,7 +9,9 @@
   <h2>Welcome, <%= user.name %></h2>
   <div>
     <a href="/projects">Projects</a>
-    <a href="/users">Users</a>
+    <% if (user.role_id === 3) { %> <!-- Only admins can see the Users button -->
+      <a href="/users">Users</a>
+    <% } %>
     <a href="/clock">Clock In/Out</a>
     <a href="/reports/hours">Reports</a>
     <a href="/invoices">Invoices</a>

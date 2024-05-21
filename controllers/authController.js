@@ -6,7 +6,7 @@ exports.register = async (req, res) => {
   const { name, email, password } = req.body;
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
-    await User.create({ name, email, password: hashedPassword, role: 'employee' });
+    await User.create({ name, email, password: hashedPassword, role_id: 1 });
     res.redirect('/auth/login');
   } catch (err) {
     console.error('Error during user registration:', err); // Log the error
