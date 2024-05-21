@@ -1,11 +1,16 @@
 // controllers/clockController.js
 const db = require('../config/db');
 const Project = require('../models/Project');
+const ClockEntry = require('../models/ClockEntry');
 
 exports.renderClockPage = async (req, res) => {
   try {
     const projects = await Project.findAll();
-    res.render('clock', { projects, user: req.user });
+    const lastClockEntry = await ClockEntry.getLastClockEntry(req.user.id);
+
+    const isClockedIn = lastClockEntry && !lastClockEntry.clock_out_time;
+
+    res.render('clock', { projects, user: req.user, isClockedIn });
   } catch (err) {
     res.status(500).send('Server error');
   }
@@ -15,8 +20,8 @@ exports.clockIn = async (req, res) => {
   const { project_id } = req.body;
   const user_id = req.user.id;
   try {
-    await db.query('INSERT INTO clock_entries (user_id, project_id, clock_in_time) VALUES (?, ?, NOW())', [user_id, project_id]);
-    res.redirect('/dashboard');
+    await ClockEntry.clockIn(user_id, project_id);
+    res.redirect('/clock');
   } catch (err) {
     res.status(500).send('Server error');
   }
@@ -26,11 +31,9 @@ exports.clockOut = async (req, res) => {
   const { project_id } = req.body;
   const user_id = req.user.id;
   try {
-    await db.query('UPDATE clock_entries SET clock_out_time = NOW() WHERE user_id = ? AND project_id = ? AND clock_out_time IS NULL', [user_id, project_id]);
-    res.redirect('/dashboard');
+    await ClockEntry.clockOut(user_id, project_id);
+    res.redirect('/clock');
   } catch (err) {
     res.status(500).send('Server error');
   }
 };
-
-

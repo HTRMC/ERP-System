@@ -1,0 +1,16 @@
+<!-- views/invoices.ejs -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Invoice Details</title>
+</head>
+<body>
+  <h1>Invoice Details</h1>
+  <p><strong>Invoice ID:</strong> <%= invoice.id %></p>
+  <p><strong>User ID:</strong> <%= invoice.user_id %></p>
+  <p><strong>Project ID:</strong> <%= invoice.project_id %></p>
+  <p><strong>Hours Worked:</strong> <%= invoice.hours_worked %></p>
+  <p><strong>Date:</strong> <%= invoice.invoice_date %></p>
+  <a href="/invoices">Back to Invoices</a>
+</body>
+</html>

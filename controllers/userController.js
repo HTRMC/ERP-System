@@ -28,10 +28,18 @@ exports.getUserById = async (req, res) => {
 exports.updateUserPermissions = async (req, res) => {
   const { id } = req.params;
   const { role_id } = req.body;
+
   try {
-    if (req.user.role_id !== 3) { // 3 is the role ID for admin
-      return res.status(403).send('Permission denied');
+    const userToUpdate = await User.findById(id);
+    if (!userToUpdate) {
+      return res.status(404).send('User not found');
     }
+
+    // Check if the current user is trying to change the role of another admin
+    if (req.user.role_id === 3 && userToUpdate.role_id === 3 && id !== req.user.id) {
+      return res.status(403).send('Permission denied: Admins cannot change the role of other admins.');
+    }
+
     await User.updateRole(id, role_id);
     res.redirect('/users');
   } catch (err) {

@@ -6,15 +6,15 @@
 </head>
 <body>
   <h1>Invoices</h1>
-  <form action="/invoices/generate" method="post">
-    <div>
-      <label for="user_id">Employee:</label>
-      <select name="user_id" required>
-        <% users.forEach(user => { %>
-          <option value="<%= user.id %>"><%= user.name %></option>
-        <% }) %>
-      </select>
-    </div>
+  <ul>
+    <% invoices.forEach(invoice => { %>
+      <li>
+        <a href="/invoices/<%= invoice.id %>">Invoice <%= invoice.id %></a> - Project: <%= invoice.project_id %> - Hours Worked: <%= invoice.hours_worked %> - Date: <%= invoice.invoice_date %>
+      </li>
+    <% }) %>
+  </ul>
+  <h2>Create Invoice</h2>
+  <form action="/invoices" method="post">
     <div>
       <label for="project_id">Project:</label>
       <select name="project_id" required>
@@ -25,10 +25,7 @@
     </div>
     <button type="submit">Generate Invoice</button>
   </form>
-  <ul>
-    <% invoices.forEach(invoice => { %>
-      <li><%= invoice.user_id %> - <%= invoice.project_id %> - <%= invoice.hours_worked %> hours - <%= invoice.invoice_date %> - <a href="/invoices/<%= invoice.id %>">View PDF</a></li>
-    <% }) %>
-  </ul>
+  <a href="/dashboard">Back to Dashboard</a>
 </body>
 </html>
+

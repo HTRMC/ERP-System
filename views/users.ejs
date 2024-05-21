@@ -5,16 +5,17 @@
 </head>
 <body>
   <h1>Users</h1>
+  <a href="/dashboard">Back to Dashboard</a>
   <ul>
-    <% users.forEach(user => { %>
+    <% users.forEach(userToUpdate => { %>
       <li>
-        <%= user.name %> - <%= user.role %>
-        <% if (user.role_id === 3) { %> <!-- Only admins can update roles -->
-          <form action="/users/<%= user.id %>/permissions" method="post" style="display:inline;">
+        <%= userToUpdate.name %> - <%= userToUpdate.role %>
+        <% if (userToUpdate.role_id !== 3 || user.role_id === 3 && userToUpdate.id === user.id) { %> <!-- Only admins can update roles, except for other admins -->
+          <form action="/users/<%= userToUpdate.id %>/permissions" method="post" style="display:inline;">
             <select name="role_id">
-              <option value="1" <%= user.role_id === 1 ? 'selected' : '' %>>Employee</option>
-              <option value="2" <%= user.role_id === 2 ? 'selected' : '' %>>Manager</option>
-              <option value="3" <%= user.role_id === 3 ? 'selected' : '' %>>Admin</option>
+              <option value="1" <%= userToUpdate.role_id === 1 ? 'selected' : '' %>>Employee</option>
+              <option value="2" <%= userToUpdate.role_id === 2 ? 'selected' : '' %>>Manager</option>
+              <option value="3" <%= userToUpdate.role_id === 3 ? 'selected' : '' %>>Admin</option>
             </select>
             <button type="submit">Update</button>
           </form>

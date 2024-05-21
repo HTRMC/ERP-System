@@ -1,14 +1,13 @@
-// models/User.js
 const db = require('../config/db');
 
 class User {
   static async findById(id) {
-    const [rows] = await db.query('SELECT users.*, roles.role_name as role FROM users JOIN roles ON users.role_id = roles.id WHERE users.id = ?', [id]);
+    const [rows] = await db.query('SELECT * FROM users WHERE id = ?', [id]);
     return rows[0];
   }
 
   static async findByEmail(email) {
-    const [rows] = await db.query('SELECT users.*, roles.role_name as role FROM users JOIN roles ON users.role_id = roles.id WHERE users.email = ?', [email]);
+    const [rows] = await db.query('SELECT * FROM users WHERE email = ?', [email]);
     return rows[0];
   }
 
@@ -29,4 +28,3 @@ class User {
 }
 
 module.exports = User;
-

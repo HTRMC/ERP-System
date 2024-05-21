@@ -9,6 +9,7 @@ const projectRoutes = require('./routes/projectRoutes');
 const userRoutes = require('./routes/userRoutes');
 const clockRoutes = require('./routes/clockRoutes');
 const reportRoutes = require('./routes/reportRoutes');
+const invoiceRoutes = require('./routes/invoiceRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
 
 dotenv.config();
@@ -33,6 +34,7 @@ app.use('/projects', projectRoutes);
 app.use('/users', userRoutes);
 app.use('/clock', clockRoutes);
 app.use('/reports', reportRoutes);
+app.use('/invoices', invoiceRoutes);
 app.use('/dashboard', dashboardRoutes);
 
 app.get('/', (req, res) => {

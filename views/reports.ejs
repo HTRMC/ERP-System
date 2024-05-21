@@ -1,4 +1,3 @@
-<!-- views/reports.ejs -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,12 +6,13 @@
 <body>
   <h1>Reports</h1>
   <form id="reportForm" action="/reports/hours" method="get">
-    <input type="hidden" name="period" id="periodInput" value="<%= period %>">
     <div>
+      <label for="period">Period:</label>
       <button type="button" onclick="setPeriod('daily')" <%= period === 'daily' ? 'class="active"' : '' %>>Daily</button>
       <button type="button" onclick="setPeriod('weekly')" <%= period === 'weekly' ? 'class="active"' : '' %>>Weekly</button>
       <button type="button" onclick="setPeriod('monthly')" <%= period === 'monthly' ? 'class="active"' : '' %>>Monthly</button>
     </div>
+    <input type="hidden" name="period" id="periodInput" value="<%= period %>">
   </form>
   <% if (report && report.length > 0) { %>
     <table>
@@ -26,9 +26,9 @@
       <tbody>
         <% report.forEach(row => { %>
           <tr>
-            <td><%= row.project_id %></td>
-            <td><%= period === 'daily' ? row.date : (period === 'weekly' ? row.week : row.month) %></td>
-            <td><%= row.hours %></td>
+            <td><%= row.project_name %></td>
+            <td><%= row.date || row.week || row.month %></td>
+            <td><%= row.hours_worked %></td>
           </tr>
         <% }) %>
       </tbody>
@@ -43,5 +43,6 @@
       document.getElementById('reportForm').submit();
     }
   </script>
+  <a href="/dashboard">Back to Dashboard</a>
 </body>
 </html>

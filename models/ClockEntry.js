@@ -1,4 +1,3 @@
-// models/ClockEntry.js
 const db = require('../config/db');
 
 class ClockEntry {
@@ -20,14 +19,37 @@ class ClockEntry {
     return rows;
   }
 
+  static async getLastClockEntry(userId) {
+    const [rows] = await db.query('SELECT * FROM clock_entries WHERE user_id = ? ORDER BY clock_in_time DESC LIMIT 1', [userId]);
+    return rows[0];
+  }
+
   static async getHoursReport(userId, period) {
     let query = '';
     if (period === 'daily') {
-      query = 'SELECT project_id, DATE(clock_in_time) as date, SUM(TIMESTAMPDIFF(HOUR, clock_in_time, clock_out_time)) as hours FROM clock_entries WHERE user_id = ? GROUP BY project_id, DATE(clock_in_time)';
+      query = `
+        SELECT projects.name as project_name, DATE(clock_in_time) as date, 
+               SUM(TIMESTAMPDIFF(SECOND, clock_in_time, clock_out_time)) as seconds_worked 
+        FROM clock_entries 
+        JOIN projects ON clock_entries.project_id = projects.id 
+        WHERE clock_entries.user_id = ? 
+        GROUP BY projects.name, DATE(clock_in_time)`;
     } else if (period === 'weekly') {
-      query = 'SELECT project_id, YEARWEEK(clock_in_time) as week, SUM(TIMESTAMPDIFF(HOUR, clock_in_time, clock_out_time)) as hours FROM clock_entries WHERE user_id = ? GROUP BY project_id, YEARWEEK(clock_in_time)';
+      query = `
+        SELECT projects.name as project_name, YEARWEEK(clock_in_time) as week, 
+               SUM(TIMESTAMPDIFF(SECOND, clock_in_time, clock_out_time)) as seconds_worked 
+        FROM clock_entries 
+        JOIN projects ON clock_entries.project_id = projects.id 
+        WHERE clock_entries.user_id = ? 
+        GROUP BY projects.name, YEARWEEK(clock_in_time)`;
     } else if (period === 'monthly') {
-      query = 'SELECT project_id, MONTH(clock_in_time) as month, SUM(TIMESTAMPDIFF(HOUR, clock_in_time, clock_out_time)) as hours FROM clock_entries WHERE user_id = ? GROUP BY project_id, MONTH(clock_in_time)';
+      query = `
+        SELECT projects.name as project_name, MONTH(clock_in_time) as month, 
+               SUM(TIMESTAMPDIFF(SECOND, clock_in_time, clock_out_time)) as seconds_worked 
+        FROM clock_entries 
+        JOIN projects ON clock_entries.project_id = projects.id 
+        WHERE clock_entries.user_id = ? 
+        GROUP BY projects.name, MONTH(clock_in_time)`;
     } else {
       throw new Error('Invalid period');
     }
