@@ -63,7 +63,11 @@ exports.createInvoice = async (req, res) => {
     const doc = new PDFDocument();
     doc.pipe(fs.createWriteStream(pdfPath));
 
-    doc.fontSize(16).text(`Invoice for Project: ${project.name}`, { underline: true });
+    // Add the logo
+    const logoPath = path.join(__dirname, '..', 'public', 'images', 'logo.png'); // Adjust the path as needed
+    doc.image(logoPath, 20, 20, { width: 100 });
+
+    doc.fontSize(16).text(`Invoice for Project: ${project.name}`, { align: 'center', underline: true });
     doc.moveDown();
     doc.fontSize(12).text(`Total Hours Worked: ${totalHours.toFixed(2)} hours`);
     doc.text(`Total Cost: €${totalCost.toFixed(2)}`);
@@ -85,6 +89,20 @@ exports.createInvoice = async (req, res) => {
     res.redirect(`/invoices/${invoiceId}`);
   } catch (err) {
     console.error('Error creating invoice:', err);
+    res.status(500).send('Server error');
+  }
+};
+
+exports.downloadInvoice = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const invoice = await Invoice.findById(id);
+    if (!invoice) {
+      return res.status(404).send('Invoice not found');
+    }
+    res.download(invoice.pdf_path);
+  } catch (err) {
+    console.error('Error downloading invoice:', err);
     res.status(500).send('Server error');
   }
 };

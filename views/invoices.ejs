@@ -1,4 +1,3 @@
-<!-- views/invoices.ejs -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,10 +5,12 @@
 </head>
 <body>
   <h1>Invoices</h1>
+  <a href="/dashboard">Back to Dashboard</a>
   <ul>
     <% invoices.forEach(invoice => { %>
       <li>
         <a href="/invoices/<%= invoice.id %>">Invoice <%= invoice.id %></a> - Project: <%= invoice.project_id %> - Hours Worked: <%= invoice.hours_worked %> - Date: <%= invoice.invoice_date %>
+        <a href="/invoices/download/<%= invoice.id %>">Download</a> <!-- Add this line -->
       </li>
     <% }) %>
   </ul>
@@ -25,7 +26,5 @@
     </div>
     <button type="submit">Generate Invoice</button>
   </form>
-  <a href="/dashboard">Back to Dashboard</a>
 </body>
 </html>
-
