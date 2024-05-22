@@ -65,7 +65,7 @@ exports.createInvoice = async (req, res) => {
 
     // Add the logo
     const logoPath = path.join(__dirname, '..', 'public', 'images', 'logo.png'); // Adjust the path as needed
-    doc.image(logoPath, 20, 20, { width: 100 });
+    doc.image(logoPath, 50, 50, { width: 200 });
 
     doc.fontSize(16).text(`Invoice for Project: ${project.name}`, { align: 'center', underline: true });
     doc.moveDown();
