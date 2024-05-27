@@ -11,6 +11,7 @@
   <p><strong>Project ID:</strong> <%= invoice.project_id %></p>
   <p><strong>Hours Worked:</strong> <%= invoice.hours_worked %></p>
   <p><strong>Date:</strong> <%= invoice.invoice_date %></p>
+  <a href="/invoices/download/<%= invoice.invoice_id %>">Download PDF</a>
   <a href="/invoices">Back to Invoices</a>
 </body>
 </html>

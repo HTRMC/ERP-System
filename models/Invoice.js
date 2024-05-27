@@ -1,4 +1,3 @@
-// models/Invoice.js
 const db = require('../config/db');
 
 class Invoice {
@@ -7,14 +6,17 @@ class Invoice {
     return rows;
   }
 
-  static async findById(id) {
-    const [rows] = await db.query('SELECT * FROM invoices WHERE id = ?', [id]);
+  static async findById(invoiceId) {
+    const [rows] = await db.query('SELECT * FROM invoices WHERE invoice_id = ?', [invoiceId]);
     return rows[0];
   }
 
   static async create(invoice) {
-    const { user_id, project_id, hours_worked, pdf_path } = invoice;
-    const result = await db.query('INSERT INTO invoices (user_id, project_id, hours_worked, pdf_path) VALUES (?, ?, ?, ?)', [user_id, project_id, hours_worked, pdf_path]);
+    const { user_id, project_id, hours_worked, pdf_path, invoice_id } = invoice;
+    const result = await db.query(
+      'INSERT INTO invoices (user_id, project_id, hours_worked, pdf_path, invoice_id) VALUES (?, ?, ?, ?, ?)',
+      [user_id, project_id, hours_worked, pdf_path, invoice_id]
+    );
     return result[0].insertId;
   }
 }

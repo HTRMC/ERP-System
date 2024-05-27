@@ -9,8 +9,8 @@
   <ul>
     <% invoices.forEach(invoice => { %>
       <li>
-        <a href="/invoices/<%= invoice.id %>">Invoice <%= invoice.id %></a> - Project: <%= invoice.project_id %> - Hours Worked: <%= invoice.hours_worked %> - Date: <%= invoice.invoice_date %>
-        <a href="/invoices/download/<%= invoice.id %>">Download</a> <!-- Add this line -->
+        <a href="/invoices/<%= invoice.invoice_id %>">Invoice <%= invoice.invoice_id %>
+        <a href="/invoices/download/<%= invoice.invoice_id %>">Download</a> <!-- Add this line -->
       </li>
     <% }) %>
   </ul>
