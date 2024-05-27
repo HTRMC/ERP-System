@@ -1,0 +1,106 @@
+:root {
+  --main-container: #f4f5f7;
+  --gilde-pink: #e01866;
+  --gilde-blue: #12345d;
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+form {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: var(--main-container);
+}
+
+.main-inlog-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  height: 70%;
+  border-radius: 20px;
+  background-color: white;
+}
+
+.content-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 90%;
+  height: 90%;
+  border-radius: 20px;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20%;
+  width: 100%;
+}
+
+.input-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 60%;
+  height: 55%;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  height: 10%;
+}
+
+#email {
+  display: flex;
+  width: 90%;
+  height: 10%;
+  border-radius: 15px;
+  margin-bottom: 10%;
+  cursor: pointer;
+}
+
+#Password {
+  display: flex;
+  width: 90%;
+  height: 10%;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.wachtwoord-vergeten {
+  font-size: small;
+  margin-left: 50%;
+  cursor: pointer;
+}
+
+#login-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 65%;
+  border-radius: 10px;
+  color: white;
+  background-color: var(--gilde-blue);
+  cursor: pointer;
+}
