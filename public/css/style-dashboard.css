@@ -1,0 +1,39 @@
+:root {
+  --main-container: #f4f5f7;
+  --gilde-pink: #e01866;
+  --gilde-blue: #12345d;
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+}
+
+.main-container {
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: var(--main-container);
+}
+
+.sidebar-container {
+  display: flex;
+  height: 100%;
+  width: 15%;
+  background-color: red;
+}
+
+.main-content-container {
+  display: flex;
+  height: 100%;
+  width: 85%;
+  background-color: blue;
+}

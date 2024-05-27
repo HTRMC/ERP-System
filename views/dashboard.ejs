@@ -1,21 +1,31 @@
 <!-- views/dashboard.ejs -->
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Dashboard</title>
-</head>
-<body>
-  <h1>Dashboard</h1>
-  <h2>Welcome, <%= user.name %></h2>
-  <div>
-    <a href="/projects">Projects</a>
-    <% if (user.role_id === 3) { %> <!-- Only admins can see the Users button -->
-      <a href="/users">Users</a>
-    <% } %>
-    <a href="/clock">Clock In/Out</a>
-    <a href="/reports/hours">Reports</a>
-    <a href="/invoices">Invoices</a>
-    <a href="/auth/logout">Logout</a>
-  </div>
-</body>
+  <head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/css/style-dashboard.css" />
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="container">
+        <div class="sidebar-container">
+          <div class="logo"></div>
+        </div>
+        <div class="main-content-container">
+          <div class="search-container"></div>
+          <div class="content-container"></div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
+
+<!-- <a href="/projects">Projects</a>
+<% if (user.role_id === 3) { %> -->
+<!-- Only admins can see the Users button -->
+<!-- <a href="/users">Users</a>
+<% } %> -->
+<!-- <a href="/clock">Clock In/Out</a>
+<a href="/reports/hours">Reports</a>
+<a href="/invoices">Invoices</a> -->
+<!-- <a href="/auth/logout">Logout</a> -->
