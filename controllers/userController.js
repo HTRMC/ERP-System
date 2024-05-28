@@ -1,6 +1,6 @@
-// controllers/userController.js
+// controllers/userController.js \\
 const bcrypt = require('bcryptjs');
-const Sequelize = require('sequelize'); // Ensure Sequelize is imported
+const Sequelize = require('sequelize');
 const User = require('../models/User');
 
 exports.getUsers = async (req, res) => {
