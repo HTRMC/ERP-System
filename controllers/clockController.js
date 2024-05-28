@@ -10,7 +10,7 @@ exports.renderClockPage = async (req, res) => {
 
     const isClockedIn = lastClockEntry && !lastClockEntry.clock_out_time;
 
-    res.render('clock', { projects, user: req.user, isClockedIn });
+    res.render('clock', { projects, user: req.user, isClockedIn, lastClockEntry });
   } catch (err) {
     res.status(500).send('Server error');
   }

@@ -24,7 +24,7 @@
         <label for="project_id">Project:</label>
         <select name="project_id" required>
           <% projects.forEach(project => { %>
-            <option value="<%= project.id %>"><%= project.name %></option>
+            <option value="<%= project.id %>" <%= lastClockEntry && lastClockEntry.project_id === project.id ? 'selected' : '' %>><%= project.name %></option>
           <% }) %>
         </select>
       </div>
