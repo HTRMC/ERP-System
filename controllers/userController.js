@@ -1,10 +1,12 @@
 // controllers/userController.js
+const bcrypt = require('bcryptjs');
+const Sequelize = require('sequelize'); // Ensure Sequelize is imported
 const User = require('../models/User');
 
 exports.getUsers = async (req, res) => {
   try {
     const users = await User.findAll();
-    res.render('users', { users, user: req.user });
+    res.render('users', { users, user: req.user, error: null });
   } catch (err) {
     console.error('Error fetching users:', err);
     res.status(500).send('Server error');
@@ -45,5 +47,23 @@ exports.updateUserPermissions = async (req, res) => {
   } catch (err) {
     console.error('Error updating user permissions:', err);
     res.status(500).send('Server error');
+  }
+};
+
+exports.registerUser = async (req, res) => {
+  const { name, email, password, role_id } = req.body;
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    await User.create({ name, email, password: hashedPassword, role_id });
+    res.redirect('/users');
+  } catch (err) {
+    if (err instanceof Sequelize.UniqueConstraintError) {
+      const users = await User.findAll();
+      res.render('users', { users, user: req.user, error: 'User already exists' });
+    } else {
+      console.error('Error during user registration:', err);
+      const users = await User.findAll();
+      res.render('users', { users, user: req.user, error: 'Server error during registration' });
+    }
   }
 };
