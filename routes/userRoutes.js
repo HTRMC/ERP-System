@@ -9,4 +9,6 @@ router.get('/', ensureAuthenticated, ensureAdmin, userController.getUsers);
 router.get('/:id', ensureAuthenticated, ensureAdmin, userController.getUserById);
 router.post('/:id/permissions', ensureAuthenticated, ensureAdmin, userController.updateUserPermissions);
 
+router.post('/register', ensureAuthenticated, ensureAdmin, userController.registerUser);
+
 module.exports = router;
