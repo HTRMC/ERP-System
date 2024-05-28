@@ -9,7 +9,50 @@
     <div class="main-container">
       <div class="container">
         <div class="sidebar-container">
-          <div class="logo"></div>
+          <div class="menu-container">
+            <div class="top-menu-container">
+              <div class="menu-icon"></div>
+              <div class="logo"></div>
+            </div>
+            <div class="bottom-menu-container">
+              <li>
+                <a href="/dashboard" class="active">
+                  <i class="icon-dashboard"></i>
+                  <span>Dashboard</span>
+                </a>
+              </li>
+            </div>
+          </div>
+          <div class="sidebar-menu">
+            <ul>
+              <li>
+                <a href="/projects">
+                  <i class="icon-ui-elements"></i>
+                  <span>Projects</span>
+                </a>
+              </li>
+              <% if (user.role_id === 3) { %>
+              <li>
+                <a href="/users">
+                  <i class="icon-form-elements"></i>
+                  <span>Users</span>
+                </a>
+              </li>
+              <% } %>
+              <li>
+                <a href="/reports/hours">
+                  <i class="icon-tables"></i>
+                  <span>Reports</span>
+                </a>
+              </li>
+              <li>
+                <a href="/invoices">
+                  <i class="icon-icons"></i>
+                  <span>Invoices</span>
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
         <div class="main-content-container">
           <div class="search-container"></div>
@@ -19,13 +62,3 @@
     </div>
   </body>
 </html>
-
-<!-- <a href="/projects">Projects</a>
-<% if (user.role_id === 3) { %> -->
-<!-- Only admins can see the Users button -->
-<!-- <a href="/users">Users</a>
-<% } %> -->
-<!-- <a href="/clock">Clock In/Out</a>
-<a href="/reports/hours">Reports</a>
-<a href="/invoices">Invoices</a> -->
-<!-- <a href="/auth/logout">Logout</a> -->
