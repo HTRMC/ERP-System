@@ -2,7 +2,19 @@
   --main-container: #f4f5f7;
   --gilde-pink: #e01866;
   --gilde-blue: #12345d;
-  font-family: "Roboto", sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+
+  list-style: none;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  text-decoration: none;
+  cursor: auto;
 }
 
 body {
@@ -31,7 +43,7 @@ body {
   flex-direction: column;
   height: 100%;
   width: 13%;
-  background-color: red;
+  background-color: var(--main-container);
 }
 
 .menu-container {
@@ -41,7 +53,6 @@ body {
   flex-direction: column;
   width: 100%;
   height: 20%;
-  background-color: #12345d;
 }
 
 .top-menu-container {
@@ -50,21 +61,32 @@ body {
   align-items: center;
   width: 100%;
   height: 60%;
-  background-color: tan;
 }
 
 .menu-icon {
   display: flex;
-  background-color: ghostwhite;
+  justify-content: center;
+  align-items: center;
   width: 20%;
   height: 40%;
 }
 
+.menu-icon img {
+  max-width: 60%;
+  max-height: 60%;
+}
+
 .logo {
   display: flex;
+  justify-content: center;
+  align-items: center;
   width: 70%;
   height: 80%;
-  background-color: yellow;
+}
+
+.logo img {
+  max-width: 90%;
+  max-height: 90%;
 }
 
 .bottom-menu-container {
@@ -72,7 +94,6 @@ body {
   align-items: center;
   width: 100%;
   height: 40%;
-  background-color: chartreuse;
 }
 
 .dashboard-container {
@@ -83,10 +104,14 @@ body {
   height: 50%;
   border-radius: 0 20px 20px 0;
   background-color: white;
+  font-weight: bold;
+  color: #12345d;
 }
 
 .sidebar-menu ul {
   list-style: none;
+  justify-content: center;
+  align-items: center;
   padding: 0;
   margin: 0;
 }
@@ -100,19 +125,25 @@ body {
   display: flex;
   align-items: center;
   padding: 10px 20px;
+  margin-top: 20px;
   color: #333;
   text-decoration: none;
-  transition: background-color 0.3s;
+  width: 70%; /* Set initial width */
+  height: 40%; /* Set initial height */
+  transition: background-color 0.3s, width 0.3s, height 0.3s, border-radius 0.3s;
 }
 
 .sidebar-menu ul li a:hover,
 .sidebar-menu ul li a.active {
-  background-color: #e7e7e7;
+  background-color: white;
+  width: 70%; /* Adjust width on hover */
+  height: 40%; /* Adjust height on hover */
   border-radius: 0 20px 20px 0;
+  color: var(--gilde-blue);
 }
 
 .sidebar-menu ul li a i {
-  margin-right: px;
+  margin-left: 55px;
 }
 
 .sidebar.closed {
@@ -140,14 +171,84 @@ body {
   flex-direction: column;
   height: 100%;
   width: 87%;
-  background-color: blue;
 }
 
 .search-container {
   display: flex;
   width: 100%;
   height: 20%;
-  background-color: yellow;
+  border: black;
+}
+
+.search-container-left {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  height: 100%;
+}
+
+.message-container {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  height: 100%;
+}
+
+.welcome-massage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 80%;
+  height: 35%;
+}
+
+.additional-massage {
+  display: flex;
+  width: 80%;
+  height: 20%;
+}
+
+.search-container-right {
+  display: flex;
+  width: 40%;
+  height: 100%;
+  margin: 20px;
+}
+
+.search-bar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 75%;
+  height: 30%;
+}
+
+.search-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  width: 90%;
+  height: 70%;
+}
+
+.account-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 16%;
+  width: 9%;
+  height: 30%;
+}
+
+.circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 90%;
+  border-radius: 50% !important;
 }
 
 .content-container {

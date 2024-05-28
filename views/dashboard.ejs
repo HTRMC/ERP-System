@@ -1,4 +1,3 @@
-<!-- views/dashboard.ejs -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -11,8 +10,12 @@
         <div class="sidebar-container">
           <div class="menu-container">
             <div class="top-menu-container">
-              <div class="menu-icon"></div>
-              <div class="logo"></div>
+              <div class="menu-icon">
+                <img src="/images/hamburger.png" alt="menu-button" />
+              </div>
+              <div class="logo">
+                <img src="/images/logo.png" alt="Logo" />
+              </div>
             </div>
             <div class="bottom-menu-container">
               <div class="dashboard-container">
@@ -55,10 +58,34 @@
           </div>
         </div>
         <div class="main-content-container">
-          <div class="search-container"></div>
+          <div class="search-container">
+            <div class="search-container-left">
+              <div class="message-container">
+                <div class="welcome-massage">
+                  <h2>Welcome, <%= user.name %></h2>
+                </div>
+                <div class="additional-massage"></div>
+              </div>
+            </div>
+            <div class="search-container-right">
+              <div class="search-bar-container">
+                <input
+                  class="search-bar"
+                  type="search"
+                  name="search"
+                  placeholder="Search"
+                />
+              </div>
+              <div class="account-button">
+                <div class="circle"></div>
+              </div>
+            </div>
+          </div>
           <div class="content-container"></div>
         </div>
       </div>
     </div>
   </body>
 </html>
+
+<h2>Welcome, <%= user.name %></h2>
