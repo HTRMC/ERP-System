@@ -136,10 +136,10 @@ body {
 .sidebar-menu ul li a:hover,
 .sidebar-menu ul li a.active {
   background-color: white;
+  color: var(--gilde-blue);
   width: 70%; /* Adjust width on hover */
   height: 40%; /* Adjust height on hover */
   border-radius: 0 20px 20px 0;
-  color: var(--gilde-blue);
 }
 
 .sidebar-menu ul li a i {
@@ -170,14 +170,16 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
-  width: 87%;
+  width: 85%;
+  margin-right: 2%;
 }
 
 .search-container {
   display: flex;
   width: 100%;
-  height: 20%;
+  height: 15%;
   border: black;
+  border-bottom: 1px solid darkgrey; /* Added line */
 }
 
 .search-container-left {
@@ -200,13 +202,13 @@ body {
   align-items: center;
   gap: 10px;
   width: 80%;
-  height: 35%;
+  height: 45%;
 }
 
 .additional-massage {
   display: flex;
   width: 80%;
-  height: 20%;
+  height: 25%;
 }
 
 .search-container-right {
@@ -221,16 +223,36 @@ body {
   justify-content: center;
   align-items: center;
   width: 75%;
-  height: 30%;
+  height: 35%;
 }
 
 .search-bar {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
+  align-items: center; /* Align items to the center */
   width: 90%;
   height: 70%;
+  border: 1px solid #ccc; /* Light grey border */
+  border-radius: 20px; /* More rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  padding: 0 15px; /* Padding for content inside */
+  background-color: #fff; /* White background */
+  transition: box-shadow 0.3s, border-color 0.3s; /* Smooth transitions */
+}
+
+.search-bar i {
+  margin-right: 10px; /* Space between icon and input */
+  color: #888; /* Icon color */
+}
+
+.search-bar input {
+  border: none; /* Remove border from input */
+  outline: none; /* Remove outline from input */
+  flex: 1; /* Allow input to take available space */
+}
+
+.search-bar:focus-within {
+  border-color: var(--gilde-blue); /* Border color change on focus */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Deeper shadow on focus */
 }
 
 .account-button {
@@ -239,21 +261,43 @@ body {
   align-items: center;
   margin-left: 16%;
   width: 9%;
-  height: 30%;
+  height: 35%;
 }
 
 .circle {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 90%;
-  height: 90%;
+  width: 45px;
+  height: 45px;
   border-radius: 50% !important;
+  background-color: #333;
 }
 
 .content-container {
   display: flex;
+  flex-direction: column;
   width: 100%;
-  height: 80%;
+  height: 85%;
   background-color: purple;
+}
+
+.general-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 18%;
+}
+
+.general-container,
+h3 {
+  font-size: ;
+}
+
+.cards-container {
+  display: flex;
+  width: 100%;
+  height: 82%;
+  background-color: yellow;
 }
