@@ -63,7 +63,7 @@ exports.createInvoice = async (req, res) => {
     const invoiceId = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}`;
 
     // Generate PDF
-    const pdfPath = path.join(invoicesDir, `invoice_${invoiceId}.pdf`);
+    const pdfPath = `invoices/invoice_${invoiceId}.pdf`;
     const doc = new PDFDocument({ margin: 50 });
     doc.pipe(fs.createWriteStream(pdfPath));
 
