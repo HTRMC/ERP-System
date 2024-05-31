@@ -64,8 +64,9 @@ exports.createInvoice = async (req, res) => {
 
     // Generate PDF
     const pdfPath = `invoices/invoice_${invoiceId}.pdf`;
+    const absolutePdfPath = path.join(__dirname, '..', pdfPath);
     const doc = new PDFDocument({ margin: 50 });
-    doc.pipe(fs.createWriteStream(pdfPath));
+    doc.pipe(fs.createWriteStream(absolutePdfPath));
 
     // Add the logo
     const logoPath = path.join(__dirname, '..', 'public', 'images', 'logo.png'); // Adjust the path as needed
@@ -147,7 +148,8 @@ exports.downloadInvoice = async (req, res) => {
     if (!invoice) {
       return res.status(404).send('Invoice not found');
     }
-    res.download(invoice.pdf_path);
+    const absolutePdfPath = path.join(__dirname, '..', invoice.pdf_path);
+    res.download(absolutePdfPath);
   } catch (err) {
     console.error('Error downloading invoice:', err);
     res.status(500).send('Server error');
