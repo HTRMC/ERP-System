@@ -177,7 +177,7 @@ body {
 .search-container {
   display: flex;
   width: 100%;
-  height: 15%;
+  height: 16%;
   border: black;
   border-bottom: 1px solid darkgrey; /* Added line */
 }
@@ -278,8 +278,7 @@ body {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 85%;
-  background-color: purple;
+  height: 84%;
 }
 
 .general-container {
@@ -292,12 +291,103 @@ body {
 
 .general-container,
 h3 {
-  font-size: ;
+  font-size: large;
 }
 
 .cards-container {
   display: flex;
   width: 100%;
   height: 82%;
-  background-color: yellow;
+}
+
+.links-cards-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 65%;
+  height: 100%;
+}
+
+.inklok-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  width: 90%;
+  height: 35%;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.inklok-boven {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 40%;
+  background-color: var(--gilde-pink);
+  color: white;
+  border-radius: 10px 10px 0 0;
+}
+
+.inklok-onder {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 60%;
+  background-color: white;
+  border-radius: 0 0 10px 10px;
+}
+
+.inklok-onder button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--gilde-blue);
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.inklok-onder button:hover {
+  background-color: var(--gilde-pink);
+}
+
+.donut-card-container {
+  display: flex;
+  padding: 20px;
+  width: 90%;
+  height: 48%;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.rechts-cards-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 35%;
+  height: 100%;
+}
+
+.opdrachten-card-container {
+  display: flex;
+  padding: 20px;
+  width: 90%;
+  height: 58%;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.top-klant-container {
+  display: flex;
+  padding: 20px;
+  width: 90%;
+  height: 25%;
+  border-radius: 10px;
+  background-color: white;
 }
