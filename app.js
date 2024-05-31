@@ -21,6 +21,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.use(session({
   secret: process.env.SESSION_SECRET,
@@ -41,6 +42,12 @@ app.use('/dashboard', dashboardRoutes);
 
 app.get('/', (req, res) => {
   res.redirect('/auth/login');
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
 });
 
 const PORT = process.env.PORT || 3000;

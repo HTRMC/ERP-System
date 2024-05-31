@@ -18,6 +18,11 @@ class User {
     return rows;
   }
 
+  static async findByResetToken(token) {
+    const [rows] = await db.query('SELECT * FROM users WHERE resetPasswordToken = ? AND resetPasswordExpires > ?', [token, Date.now()]);
+    return rows[0];
+  }
+
   static async create(user) {
     const { name, email, password, role_id } = user;
     const result = await db.query('INSERT INTO users (name, email, password, role_id) VALUES (?, ?, ?, ?)', [name, email, password, role_id]);
@@ -26,6 +31,14 @@ class User {
 
   static async updateRole(id, role_id) {
     await db.query('UPDATE users SET role_id = ? WHERE id = ?', [role_id, id]);
+  }
+
+  static async updatePassword(id, password) {
+    await db.query('UPDATE users SET password = ?, resetPasswordToken = NULL, resetPasswordExpires = NULL WHERE id = ?', [password, id]);
+  }
+
+  static async setResetToken(email, token, expires) {
+    await db.query('UPDATE users SET resetPasswordToken = ?, resetPasswordExpires = ? WHERE email = ?', [token, expires, email]);
   }
 }
 

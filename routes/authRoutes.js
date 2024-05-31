@@ -1,6 +1,8 @@
 // routes/authRoutes.js
+
 const express = require('express');
 const passport = require('passport');
+const { showForgotPasswordForm, handleForgotPassword, showResetPasswordForm, handleResetPassword } = require('../controllers/authController');
 
 const router = express.Router();
 
@@ -34,5 +36,10 @@ router.get('/logout', (req, res) => {
   });
 });
 
-module.exports = router;
+// New routes for password reset
+router.get('/forgot-password', showForgotPasswordForm);
+router.post('/forgot-password', handleForgotPassword);
+router.get('/reset-password/:token', showResetPasswordForm);
+router.post('/reset-password/:token', handleResetPassword);
 
+module.exports = router;
