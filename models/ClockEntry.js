@@ -70,6 +70,15 @@ class ClockEntry {
     const [rows] = await db.query(query, [userId]);
     return rows;
   }
+
+  static async getTotalHoursCurrentYear(userId) {
+    const query = `
+      SELECT SUM(TIMESTAMPDIFF(SECOND, clock_in_time, clock_out_time)) / 3600 as hours_worked
+      FROM clock_entries 
+      WHERE user_id = ? AND YEAR(clock_in_time) = YEAR(CURDATE())`;
+    const [rows] = await db.query(query, [userId]);
+    return rows[0].hours_worked ? parseFloat(rows[0].hours_worked) : 0;
+  }  
 }
 
 module.exports = ClockEntry;

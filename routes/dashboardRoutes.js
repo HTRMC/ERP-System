@@ -10,15 +10,16 @@ router.get('/', ensureAuthenticated, async (req, res) => {
     const projects = await Project.findAll();
     const lastClockEntry = await ClockEntry.getLastClockEntry(req.user.id);
     const isClockedIn = lastClockEntry && !lastClockEntry.clock_out_time;
-
     const hoursByProject = await ClockEntry.getTotalHoursByProject(req.user.id);
+    const totalHoursCurrentYear = await ClockEntry.getTotalHoursCurrentYear(req.user.id);
 
     res.render('dashboard', { 
       user: req.user, 
       projects, 
       isClockedIn, 
       lastClockEntry,
-      hoursByProject
+      hoursByProject,
+      totalHoursCurrentYear
     });
   } catch (err) {
     res.status(500).send('Server error');
