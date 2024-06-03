@@ -69,7 +69,7 @@ exports.createInvoice = async (req, res) => {
     doc.pipe(fs.createWriteStream(absolutePdfPath));
 
     // Add the logo
-    const logoPath = path.join(__dirname, '..', 'public', 'images', 'logo.png'); // Adjust the path as needed
+    const logoPath = path.join(__dirname, '..', 'public', 'images', 'logo.png');
     doc.image(logoPath, 20, 20, { width: 100 });
 
     doc.fontSize(20).text('GildeDevOps Solutions', 110, 57);
