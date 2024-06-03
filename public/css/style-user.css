@@ -1,0 +1,103 @@
+:root {
+  --main-container: #f4f5f7;
+  --gilde-pink: #e01866;
+  --gilde-blue: #12345d;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+
+  list-style: none;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  text-decoration: none;
+  cursor: auto;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+.main-container {
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: var(--main-container);
+}
+
+.top-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 16%;
+  border-bottom: 1px solid darkgrey; /* Added line */
+}
+
+.search-bar {
+  display: flex;
+  align-items: center; /* Align items to the center */
+  width: 20%;
+  height: 25%;
+  margin-left: 30px;
+  border: 1px solid #ccc; /* Light grey border */
+  border-radius: 20px; /* More rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  padding: 0 15px; /* Padding for content inside */
+  background-color: #fff; /* White background */
+  transition: box-shadow 0.3s, border-color 0.3s; /* Smooth transitions */
+}
+
+.search-bar i {
+  margin-right: 10px; /* Space between icon and input */
+  color: #888; /* Icon color */
+}
+
+.search-bar input {
+  border: none; /* Remove border from input */
+  outline: none; /* Remove outline from input */
+  flex: 1; /* Allow input to take available space */
+}
+
+.search-bar:focus-within {
+  border-color: var(--gilde-blue); /* Border color change on focus */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Deeper shadow on focus */
+}
+
+.add-user {
+  padding: 10px 20px; /* Add padding to the button */
+  background-color: white; /* Use custom color */
+  color: #888; /* Text color */
+  border: 1px solid #ccc; /* Light grey border */
+  border-radius: 15px; /* Rounded corners */
+  cursor: pointer; /* Add pointer cursor on hover */
+  transition: background-color 0.3s; /* Smooth transition for background color */
+  margin-right: 5%;
+  width: 7%;
+}
+
+.add-user:hover {
+  background-color: lightgrey; /* Darken the background color on hover */
+}
+
+.content-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 84%;
+}

@@ -34,6 +34,7 @@ form {
   height: 70%;
   border-radius: 20px;
   background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .content-container {
@@ -70,21 +71,25 @@ form {
   height: 10%;
 }
 
-#email {
+input[type="email"],
+input[type="password"] {
   display: flex;
   width: 90%;
   height: 10%;
   border-radius: 15px;
   margin-bottom: 10%;
-  cursor: pointer;
+  padding: 5px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s, box-shadow 0.3s;
+  font-size: 1rem;
 }
 
-#password {
-  display: flex;
-  width: 90%;
-  height: 10%;
-  border-radius: 15px;
-  cursor: pointer;
+input[type="email"]:focus,
+input[type="password"]:focus {
+  border-color: var(--gilde-blue);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  outline: none;
 }
 
 .wachtwoord-vergeten {
@@ -103,4 +108,8 @@ form {
   color: white;
   background-color: var(--gilde-blue);
   cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }

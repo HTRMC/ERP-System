@@ -229,6 +229,7 @@ body {
 .search-bar {
   display: flex;
   align-items: center; /* Align items to the center */
+
   width: 90%;
   height: 70%;
   border: 1px solid #ccc; /* Light grey border */
@@ -363,6 +364,7 @@ h3 {
   height: 48%;
   border-radius: 10px;
   background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .rechts-cards-container {
@@ -381,6 +383,7 @@ h3 {
   height: 58%;
   border-radius: 10px;
   background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .top-klant-container {
@@ -390,4 +393,5 @@ h3 {
   height: 25%;
   border-radius: 10px;
   background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
