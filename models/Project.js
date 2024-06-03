@@ -13,8 +13,8 @@ class Project {
   }
 
   static async create(project) {
-    const { name, description, start_date, end_date } = project;
-    const result = await db.query('INSERT INTO projects (name, description, start_date, end_date) VALUES (?, ?, ?, ?)', [name, description, start_date, end_date]);
+    const { name, description, start_date, end_date, company_name, contact_name, company_address, company_zip, company_country } = project;
+    const result = await db.query('INSERT INTO projects (name, description, start_date, end_date, company_name, contact_name, company_address, company_zip, company_country) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [name, description, start_date, end_date, company_name, contact_name, company_address, company_zip, company_country]);
     return result[0].insertId;
   }
 }
