@@ -1,3 +1,4 @@
+// models/ClockEntry.js
 const db = require('../config/db');
 
 class ClockEntry {
@@ -54,6 +55,18 @@ class ClockEntry {
       throw new Error('Invalid period');
     }
 
+    const [rows] = await db.query(query, [userId]);
+    return rows;
+  }
+
+  static async getTotalHoursByProject(userId) {
+    const query = `
+      SELECT projects.name as project_name, 
+             SUM(TIMESTAMPDIFF(SECOND, clock_in_time, clock_out_time)) / 3600 as hours_worked 
+      FROM clock_entries 
+      JOIN projects ON clock_entries.project_id = projects.id 
+      WHERE clock_entries.user_id = ? 
+      GROUP BY projects.name`;
     const [rows] = await db.query(query, [userId]);
     return rows;
   }

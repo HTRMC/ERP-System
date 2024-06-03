@@ -9,12 +9,20 @@ router.get('/', ensureAuthenticated, async (req, res) => {
   try {
     const projects = await Project.findAll();
     const lastClockEntry = await ClockEntry.getLastClockEntry(req.user.id);
-
     const isClockedIn = lastClockEntry && !lastClockEntry.clock_out_time;
 
-    res.render('dashboard', { user: req.user, projects, isClockedIn, lastClockEntry });
+    const hoursByProject = await ClockEntry.getTotalHoursByProject(req.user.id);
+
+    res.render('dashboard', { 
+      user: req.user, 
+      projects, 
+      isClockedIn, 
+      lastClockEntry,
+      hoursByProject
+    });
   } catch (err) {
     res.status(500).send('Server error');
   }
 });
+
 module.exports = router;
