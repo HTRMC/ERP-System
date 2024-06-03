@@ -6,6 +6,10 @@
   user-select: none;
 }
 
+* {
+  text-decoration: none;
+}
+
 body {
   width: 100%;
   height: 100vh;
@@ -75,11 +79,12 @@ form {
 input[type="email"],
 input[type="password"] {
   display: flex;
-  width: 90%;
-  height: 10%;
-  border-radius: 15px;
+  width: 75%;
+  height: 8%;
+  border-radius: 20px;
   margin-bottom: 10%;
   padding: 5px;
+  padding-left: 30px;
   border: 1px solid #ccc;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: border-color 0.3s, box-shadow 0.3s;
@@ -95,8 +100,14 @@ input[type="password"]:focus {
 
 .wachtwoord-vergeten {
   font-size: small;
-  margin-left: 50%;
+  color: #ccc;
+  margin-left: 40%;
   cursor: pointer;
+}
+
+.wachtwoord-vergeten,
+a {
+  color: #5d5b5b;
 }
 
 #login-button {
@@ -105,7 +116,23 @@ input[type="password"]:focus {
   align-items: center;
   width: 90%;
   height: 65%;
-  border-radius: 10px;
+  border-radius: 20px;
+  color: white;
+  background-color: var(--gilde-blue);
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#reset-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 65%;
+  border-radius: 20px;
   color: white;
   background-color: var(--gilde-blue);
   cursor: pointer;
