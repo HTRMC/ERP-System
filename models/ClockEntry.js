@@ -79,6 +79,11 @@ class ClockEntry {
     const [rows] = await db.query(query, [userId]);
     return rows[0].hours_worked ? parseFloat(rows[0].hours_worked) : 0;
   }  
+  
+  static async getLastClockEntry(userId) {
+    const [rows] = await db.query('SELECT * FROM clock_entries WHERE user_id = ? ORDER BY clock_in_time DESC LIMIT 1', [userId]);
+    return rows[0];
+  }
 }
 
 module.exports = ClockEntry;

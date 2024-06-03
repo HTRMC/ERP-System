@@ -89,7 +89,7 @@
               </div>
               <div>
                 <p class="title">Inklok tijd</p>
-                <h3 class="inklok-begin-tijd">9:01</h3>
+                <h3 class="inklok-begin-tijd"><%= lastClockEntry ? new Date(lastClockEntry.clock_in_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'N/A' %></h3>
               </div>
               <div>
                 <p class="title">Werktijd</p>
