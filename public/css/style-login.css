@@ -3,6 +3,7 @@
   --gilde-pink: #e01866;
   --gilde-blue: #12345d;
   font-family: "Roboto", sans-serif;
+  user-select: none;
 }
 
 body {
