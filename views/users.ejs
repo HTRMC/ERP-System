@@ -33,27 +33,40 @@
           </div>
         </div>
         <div class="content-container">
-          <div class="user-details">
-            <div class="user-picture">
-              <img src="https://via.placeholder.com/50" alt="User Picture" />
-            </div>
+          <div class="user-details" onclick="toggleDetails(this)">
             <div class="user-info">
-              <span class="user-name">John Doe</span>
-              <span class="user-email">john.doe@example.com</span>
-              <span class="user-hours">8 hours</span>
-              <span class="user-status clocked-in">Clocked In</span>
-              <!-- Added class "clocked-in" -->
+              <div class="user-picture">
+                <img src="https://via.placeholder.com/50" alt="User Picture" />
+              </div>
+              <div class="user-name">John Doe</div>
+              <div class="user-email">john.doe@example.com</div>
+              <div class="user-hours">8 hours</div>
+              <div class="user-status clocked-in">Clocked In</div>
+            </div>
+            <div class="additional-details">
+              <div class="detail-container">
+                <div class="detail">Detail 1</div>
+                <div class="detail">Detail 2</div>
+                <div class="detail">Detail 3</div>
+              </div>
             </div>
           </div>
-          <div class="user-details">
-            <div class="user-picture">
-              <img src="https://via.placeholder.com/50" alt="User Picture" />
-            </div>
+          <div class="user-details" onclick="toggleDetails(this)">
             <div class="user-info">
-              <span class="user-name">Jane Smith</span>
-              <span class="user-email">jane.smith@example.com</span>
-              <span class="user-hours">-</span>
-              <span class="user-status">Clocked Out</span>
+              <div class="user-picture">
+                <img src="https://via.placeholder.com/50" alt="User Picture" />
+              </div>
+              <div class="user-name">Jane Smith</div>
+              <div class="user-email">jane.smith@example.com</div>
+              <div class="user-hours">-</div>
+              <div class="user-status">Clocked Out</div>
+            </div>
+            <div class="additional-details">
+              <div class="detail-container">
+                <div class="detail">Detail 1</div>
+                <div class="detail">Detail 2</div>
+                <div class="detail">Detail 3</div>
+              </div>
             </div>
           </div>
           <!-- Add more user-details divs as needed -->
@@ -91,6 +104,10 @@
       function toggleForm() {
         var popup = document.getElementById("popup-form");
         popup.classList.toggle("show");
+      }
+
+      function toggleDetails(container) {
+        container.classList.toggle("expanded");
       }
     </script>
   </body>
