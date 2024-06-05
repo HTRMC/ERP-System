@@ -1,48 +1,63 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Reports</title>
-</head>
-<body>
-  <h1>Reports</h1>
-  <form id="reportForm" action="/reports/hours" method="get">
-    <div>
-      <label for="period">Period:</label>
-      <button type="button" onclick="setPeriod('daily')" <%= period === 'daily' ? 'class="active"' : '' %>>Daily</button>
-      <button type="button" onclick="setPeriod('weekly')" <%= period === 'weekly' ? 'class="active"' : '' %>>Weekly</button>
-      <button type="button" onclick="setPeriod('monthly')" <%= period === 'monthly' ? 'class="active"' : '' %>>Monthly</button>
+  <head>
+    <title>Reports</title>
+    <link rel="stylesheet" href="/css/style-reports.css" />
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="container">
+        <div class="top-container">
+          <button class="dashboard-button" href="/dashboard">
+            Back to dashboard
+          </button>
+          <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="search" name="search" placeholder="Search" />
+          </div>
+        </div>
+        <div class="sorting-container">
+          <div class="sorting-name">
+            <button class="sort-button" onclick="sortReports('project')">
+              Sort by Project
+            </button>
+          </div>
+          <div class="sorting-period">
+            <button class="sort-button" onclick="sortReports('period')">
+              Sort by Period
+            </button>
+          </div>
+          <div class="sorting-hours">
+            <button class="sort-button" onclick="sortReports('hours')">
+              Sort by Hours Worked
+            </button>
+          </div>
+        </div>
+        <div class="content-container">
+          <% if (report && report.length > 0) { %>
+          <table>
+            <thead>
+              <tr>
+                <th>Project</th>
+                <th>Period</th>
+                <th>Hours Worked</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% report.forEach(row => { %>
+              <tr>
+                <td><%= row.project_name %></td>
+                <td><%= row.date || row.week || row.month %></td>
+                <td><%= row.hours_worked %></td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+          <% } else { %>
+          <p>No data available for the selected period.</p>
+          <% } %>
+        </div>
+      </div>
     </div>
-    <input type="hidden" name="period" id="periodInput" value="<%= period %>">
-  </form>
-  <% if (report && report.length > 0) { %>
-    <table>
-      <thead>
-        <tr>
-          <th>Project</th>
-          <th>Period</th>
-          <th>Hours Worked</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% report.forEach(row => { %>
-          <tr>
-            <td><%= row.project_name %></td>
-            <td><%= row.date || row.week || row.month %></td>
-            <td><%= row.hours_worked %></td>
-          </tr>
-        <% }) %>
-      </tbody>
-    </table>
-  <% } else { %>
-    <p>No data available for the selected period.</p>
-  <% } %>
-
-  <script>
-    function setPeriod(period) {
-      document.getElementById('periodInput').value = period;
-      document.getElementById('reportForm').submit();
-    }
-  </script>
-  <a href="/dashboard">Back to Dashboard</a>
-</body>
+  </body>
 </html>
