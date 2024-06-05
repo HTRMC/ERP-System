@@ -108,31 +108,33 @@
                     <h5>Hier kan je inklokken</h5>
                   </div>
                   <div class="inklok-onder">
-                    <% if (!isClockedIn) { %>
-                    <form id="clock-in-form" action="/clock/clock-in" method="post">
-                      <div>
-                        <label for="project_id">Project:</label>
-                        <select name="project_id" required>
-                          <% projects.forEach(project => { %>
-                            <option value="<%= project.id %>"><%= project.name %></option>
-                          <% }) %>
-                        </select>
-                      </div>
-                      <button type="submit">Clock In</button>
-                    </form>
-                    <% } else { %>
-                    <form id="clock-out-form" action="/clock/clock-out" method="post">
-                      <div>
-                        <label for="project_id">Project:</label>
-                        <select name="project_id" required>
-                          <% projects.forEach(project => { %>
-                            <option value="<%= project.id %>" <%= lastClockEntry && lastClockEntry.project_id === project.id ? 'selected' : '' %>><%= project.name %></option>
-                          <% }) %>
-                        </select>
-                      </div>
-                      <button type="submit">Clock Out</button>
-                    </form>
-                    <% } %>
+                    <div class="button-container">
+                      <% if (!isClockedIn) { %>
+                      <form id="clock-in-form" action="/clock/clock-in" method="post">
+                        <div class="label-container">
+                          <label for="project_id">Project:</label>
+                          <select name="project_id" required>
+                            <% projects.forEach(project => { %>
+                              <option value="<%= project.id %>"><%= project.name %></option>
+                            <% }) %>
+                          </select>
+                        </div>
+                        <button type="submit">Clock In</button>
+                      </form>
+                      <% } else { %>
+                      <form id="clock-out-form" action="/clock/clock-out" method="post">
+                        <div class="label-container">
+                          <label for="project_id">Project:</label>
+                          <select name="project_id" required>
+                            <% projects.forEach(project => { %>
+                              <option value="<%= project.id %>" <%= lastClockEntry && lastClockEntry.project_id === project.id ? 'selected' : '' %>><%= project.name %></option>
+                            <% }) %>
+                          </select>
+                        </div>
+                        <button type="submit">Clock Out</button>
+                      </form>
+                      <% } %>
+                    </div>
                   </div>
                 </div>
                 <div class="donut-card-container">
