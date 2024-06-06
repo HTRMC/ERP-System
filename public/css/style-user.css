@@ -99,7 +99,7 @@ body {
   justify-content: center;
   align-items: center;
   width: 90%;
-  height: 50%;
+  height: 55%;
   border-radius: 0 20px 20px 0;
   background-color: white;
   font-weight: bold;
@@ -169,7 +169,7 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: 90%;
+  width: 87%;
   height: 100%;
   background-color: var(--main-container);
 }

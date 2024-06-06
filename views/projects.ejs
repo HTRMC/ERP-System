@@ -1,62 +1,181 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Projects</title>
-</head>
-<body>
-  <h1>Projects</h1>
-  <% if (projects.length === 0) { %>
-    <p>No projects listed.</p>
-  <% } else { %>
-    <ul>
-      <% projects.forEach(project => { %>
-        <li>
-          <a href="/projects/<%= project.id %>"><%= project.name %></a> - <%= project.description %>
-        </li>
-      <% }) %>
-    </ul>
-  <% } %>
-  <% if (user.role_id === 3 || user.role_id === 2) { %> <!-- Only managers and admins can create projects -->
-    <form action="/projects" method="post">
-      <div>
+  <head>
+    <title>Projects</title>
+    <link rel="stylesheet" href="/css/style-projects.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="real-main-container">
+        <div class="sidebar-container">
+          <div class="menu-container">
+            <div class="top-menu-container">
+              <div class="menu-icon">
+                <img
+                  src="/images/hamburger.png"
+                  alt="menu-button"
+                  draggable="false"
+                />
+              </div>
+              <div class="logo">
+                <img src="/images/logo.png" alt="Logo" draggable="false" />
+              </div>
+            </div>
+            <div class="bottom-menu-container">
+              <div class="dashboard-container">
+                <a href="/dashboard" class="dashboard">
+                  <i class="icon-dashboard"></i>
+                  <span>Dashboard</span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="sidebar-menu">
+            <ul>
+              <li>
+                <a href="/projects" class="active">
+                  <i class="icon-ui-elements"></i>
+                  <span>Projects</span>
+                </a>
+              </li>
+              <% if (user.role_id === 3) { %>
+              <li>
+                <a href="/users">
+                  <i class="icon-form-elements"></i>
+                  <span>Users</span>
+                </a>
+              </li>
+              <% } %>
+              <li>
+                <a href="/reports/hours">
+                  <i class="icon-tables"></i>
+                  <span>Reports</span>
+                </a>
+              </li>
+              <li>
+                <a href="/invoices">
+                  <i class="icon-icons"></i>
+                  <span>Invoices</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="container">
+          <div class="top-container">
+            <div class="search-bar">
+              <i class="fas fa-search"></i>
+              <input
+                type="search"
+                name="search"
+                placeholder="Search Projects"
+              />
+            </div>
+            <% if (user.role_id === 3 || user.role_id === 2) { %>
+            <button class="add-project" onclick="toggleForm()">
+              <i class="fas fa-plus"></i> Add Project
+            </button>
+            <% } %>
+          </div>
+          <div class="sorting-container">
+            <div class="sorting-name">
+              <button class="sort-button" onclick="sortProjects('name')">
+                Sort by Name
+              </button>
+            </div>
+            <div class="sorting-status">
+              <button class="sort-button" onclick="sortProjects('status')">
+                Sort by Status
+              </button>
+            </div>
+          </div>
+          <div class="content-container">
+            <% if (projects.length === 0) { %>
+            <p>No projects listed.</p>
+            <% } else { %> <% projects.forEach(project => { %>
+            <div class="project-details" onclick="toggleDetails(this)">
+              <div class="project-info">
+                <div class="project-name"><%= project.name %></div>
+                <div class="project-description">
+                  <%= project.description %>
+                </div>
+                <div class="project-dates">
+                  <%= project.start_date %> - <%= project.end_date %>
+                </div>
+              </div>
+              <div class="additional-details">
+                <div class="detail-container">
+                  <div class="detail">Company: <%= project.company_name %></div>
+                  <div class="detail">Contact: <%= project.contact_name %></div>
+                  <div class="detail">
+                    Address: <%= project.company_address %>
+                  </div>
+                  <div class="detail">ZIP: <%= project.company_zip %></div>
+                  <div class="detail">
+                    Country: <%= project.company_country %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <% }) %> <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pop-up form -->
+    <div id="popup-form" class="popup-form">
+      <% if (user.role_id === 3 || user.role_id === 2) { %>
+      <h2>Add New Project</h2>
+      <% if (error) { %>
+      <p style="color: red"><%= error %></p>
+      <% } %>
+      <form action="/projects" method="post">
         <label for="name">Name:</label>
-        <input type="text" name="name" required>
-      </div>
-      <div>
+        <input type="text" id="name" name="name" required />
         <label for="description">Description:</label>
-        <input type="text" name="description" required>
-      </div>
-      <div>
+        <input type="text" id="description" name="description" required />
         <label for="start_date">Start Date:</label>
-        <input type="date" name="start_date" required>
-      </div>
-      <div>
+        <input type="date" id="start_date" name="start_date" required />
         <label for="end_date">End Date:</label>
-        <input type="date" name="end_date" required>
-      </div>
-      <div>
+        <input type="date" id="end_date" name="end_date" required />
         <label for="company_name">Company Name:</label>
-        <input type="text" name="company_name" required>
-      </div>
-      <div>
+        <input type="text" id="company_name" name="company_name" required />
         <label for="contact_name">Contact Name:</label>
-        <input type="text" name="contact_name" required>
-      </div>
-      <div>
+        <input type="text" id="contact_name" name="contact_name" required />
         <label for="company_address">Company Address:</label>
-        <input type="text" name="company_address" required>
-      </div>
-      <div>
+        <input
+          type="text"
+          id="company_address"
+          name="company_address"
+          required
+        />
         <label for="company_zip">Company ZIP:</label>
-        <input type="text" name="company_zip" required>
-      </div>
-      <div>
+        <input type="text" id="company_zip" name="company_zip" required />
         <label for="company_country">Company Country:</label>
-        <input type="text" name="company_country" required>
-      </div>
-      <button type="submit">Create Project</button>
-    </form>
-  <% } %>
-  <a href="/dashboard">Back to Dashboard</a>
-</body>
+        <input
+          type="text"
+          id="company_country"
+          name="company_country"
+          required
+        />
+        <button type="submit">Create Project</button>
+      </form>
+      <% } %>
+    </div>
+    <script>
+      function toggleForm() {
+        var popup = document.getElementById("popup-form");
+        popup.classList.toggle("show");
+      }
+
+      function toggleDetails(container) {
+        container.classList.toggle("expanded");
+      }
+    </script>
+  </body>
 </html>

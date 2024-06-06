@@ -6,56 +6,113 @@
   </head>
   <body>
     <div class="main-container">
-      <div class="container">
-        <div class="top-container">
-          <button class="dashboard-button" href="/dashboard">
-            Back to dashboard
-          </button>
-          <div class="search-bar">
-            <i class="fas fa-search"></i>
-            <input type="search" name="search" placeholder="Search" />
+      <div class="real-main-container">
+        <div class="sidebar-container">
+          <div class="menu-container">
+            <div class="top-menu-container">
+              <div class="menu-icon">
+                <img
+                  src="/images/hamburger.png"
+                  alt="menu-button"
+                  draggable="false"
+                />
+              </div>
+              <div class="logo">
+                <img src="/images/logo.png" alt="Logo" draggable="false" />
+              </div>
+            </div>
+            <div class="bottom-menu-container">
+              <div class="dashboard-container">
+                <a href="/dashboard" class="dashboard">
+                  <i class="icon-dashboard"></i>
+                  <span>Dashboard</span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="sidebar-menu">
+            <ul>
+              <li>
+                <a href="/projects">
+                  <i class="icon-ui-elements"></i>
+                  <span>Projects</span>
+                </a>
+              </li>
+              <% if (user.role_id === 3) { %>
+              <li>
+                <a href="/users">
+                  <i class="icon-form-elements"></i>
+                  <span>Users</span>
+                </a>
+              </li>
+              <% } %>
+              <li>
+                <a href="/reports/hours">
+                  <i class="icon-tables"></i>
+                  <span>Reports</span>
+                </a>
+              </li>
+              <li>
+                <a href="/invoices">
+                  <i class="icon-icons"></i>
+                  <span>Invoices</span>
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
-        <div class="sorting-container">
-          <div class="sorting-name">
-            <button class="sort-button" onclick="sortReports('project')">
-              Sort by Project
+
+        <div class="container">
+          <div class="top-container">
+            <button class="dashboard-button" href="/dashboard">
+              Back to dashboard
             </button>
+            <div class="search-bar">
+              <i class="fas fa-search"></i>
+              <input type="search" name="search" placeholder="Search" />
+            </div>
           </div>
-          <div class="sorting-period">
-            <button class="sort-button" onclick="sortReports('period')">
-              Sort by Period
-            </button>
+          <div class="sorting-container">
+            <div class="sorting-name">
+              <button class="sort-button" onclick="sortReports('project')">
+                Sort by Project
+              </button>
+            </div>
+            <div class="sorting-period">
+              <button class="sort-button" onclick="sortReports('period')">
+                Sort by Period
+              </button>
+            </div>
+            <div class="sorting-hours">
+              <button class="sort-button" onclick="sortReports('hours')">
+                Sort by Hours Worked
+              </button>
+            </div>
           </div>
-          <div class="sorting-hours">
-            <button class="sort-button" onclick="sortReports('hours')">
-              Sort by Hours Worked
-            </button>
+          <div class="content-container">
+            <% if (report && report.length > 0) { %>
+            <table>
+              <thead>
+                <tr>
+                  <th>Project</th>
+                  <th>Period</th>
+                  <th>Hours Worked</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% report.forEach(row => { %>
+                <tr>
+                  <td><%= row.project_name %></td>
+                  <td><%= row.date || row.week || row.month %></td>
+                  <td><%= row.hours_worked %></td>
+                </tr>
+                <% }) %>
+              </tbody>
+            </table>
+            <% } else { %>
+            <p>No data available for the selected period.</p>
+            <% } %>
           </div>
-        </div>
-        <div class="content-container">
-          <% if (report && report.length > 0) { %>
-          <table>
-            <thead>
-              <tr>
-                <th>Project</th>
-                <th>Period</th>
-                <th>Hours Worked</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% report.forEach(row => { %>
-              <tr>
-                <td><%= row.project_name %></td>
-                <td><%= row.date || row.week || row.month %></td>
-                <td><%= row.hours_worked %></td>
-              </tr>
-              <% }) %>
-            </tbody>
-          </table>
-          <% } else { %>
-          <p>No data available for the selected period.</p>
-          <% } %>
         </div>
       </div>
     </div>
