@@ -26,6 +26,142 @@ body {
 .main-container {
   width: 100%;
   height: 100%;
+  justify-content: row;
+}
+
+.real-main-container {
+  display: flex;
+  justify-content: row;
+  width: 100%;
+  height: 100%;
+}
+
+.sidebar-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 13%;
+  background-color: var(--main-container);
+}
+
+.menu-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 20%;
+}
+
+.top-menu-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 60%;
+}
+
+.menu-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  height: 40%;
+}
+
+.menu-icon img {
+  max-width: 60%;
+  max-height: 60%;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+  height: 80%;
+}
+
+.logo img {
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.bottom-menu-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 40%;
+}
+
+.dashboard-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 50%;
+  border-radius: 0 20px 20px 0;
+  background-color: white;
+  font-weight: bold;
+  color: #12345d;
+}
+
+.sidebar-menu ul {
+  list-style: none;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-menu ul li {
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-menu ul li a {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  margin-top: 20px;
+  color: #333;
+  text-decoration: none;
+  width: 70%; /* Set initial width */
+  height: 40%; /* Set initial height */
+  transition: background-color 0.3s, width 0.3s, height 0.3s, border-radius 0.3s;
+}
+
+.sidebar-menu ul li a:hover,
+.sidebar-menu ul li a.active {
+  background-color: white;
+  color: var(--gilde-blue);
+  width: 70%; /* Adjust width on hover */
+  height: 40%; /* Adjust height on hover */
+  border-radius: 0 20px 20px 0;
+}
+
+.sidebar-menu ul li a i {
+  margin-left: 55px;
+}
+
+.sidebar.closed {
+  width: 70px;
+}
+
+.sidebar.closed .logo {
+  display: none;
+}
+
+.sidebar.closed .sidebar-menu ul li a span {
+  display: none;
+}
+
+.sidebar.closed .sidebar-menu ul li a {
+  justify-content: center;
+}
+
+.sidebar.closed .sidebar-header .menu-toggle {
+  margin: 0 auto;
 }
 
 .container {
@@ -33,7 +169,7 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: 100%;
+  width: 90%;
   height: 100%;
   background-color: var(--main-container);
 }
