@@ -153,10 +153,10 @@
     <script>
       document.addEventListener("DOMContentLoaded", function() {
         const hoursByProject = <%- JSON.stringify(hoursByProject || []) %>;
-
+    
         const labels = hoursByProject.map(entry => entry.project_name);
         const data = hoursByProject.map(entry => entry.hours_worked);
-
+    
         const projects = {
           labels: labels,
           datasets: [
@@ -183,7 +183,7 @@
             },
           ],
         };
-
+    
         const donutChartCanvas = document.getElementById("donutChart");
         const donutChart = new Chart(donutChartCanvas, {
           type: "doughnut",
@@ -191,12 +191,26 @@
           options: {
             responsive: true,
             maintainAspectRatio: false,
-            legend: {
-              position: "right",
-            },
-          },
+            plugins: {
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    let label = context.dataset.label || '';
+                    if (label) {
+                      label += ': ';
+                    }
+                    if (context.parsed !== null) {
+                      label += context.parsed.toFixed(1) + ' hours';
+                    }
+                    return label;
+                  }
+                }
+              }
+            }
+          }
         });
       });
     </script>
+    
   </body>
 </html>
