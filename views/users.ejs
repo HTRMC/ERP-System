@@ -17,7 +17,7 @@
               <div class="menu-icon">
                 <img
                   src="/images/hamburger.png"
-                  alt="menu-button"
+                  alt="menu-knop"
                   draggable="false"
                 />
               </div>
@@ -39,27 +39,27 @@
               <li>
                 <a href="/projects">
                   <i class="icon-ui-elements"></i>
-                  <span>Projects</span>
+                  <span>Projecten</span>
                 </a>
               </li>
               <% if (user.role_id === 3) { %>
               <li>
                 <a href="/users">
                   <i class="icon-form-elements"></i>
-                  <span>Users</span>
+                  <span>Gebruikers</span>
                 </a>
               </li>
               <% } %>
               <li>
                 <a href="/reports/hours">
                   <i class="icon-tables"></i>
-                  <span>Reports</span>
+                  <span>Rapporten</span>
                 </a>
               </li>
               <li>
                 <a href="/invoices">
                   <i class="icon-icons"></i>
-                  <span>Invoices</span>
+                  <span>Facturen</span>
                 </a>
               </li>
             </ul>
@@ -69,21 +69,21 @@
           <div class="top-container">
             <div class="search-bar">
               <i class="fas fa-search"></i>
-              <input type="search" name="search" placeholder="Search" />
+              <input type="search" name="search" placeholder="Zoeken" />
             </div>
             <button class="add-user" onclick="toggleForm()">
-              <i class="fas fa-plus"></i> Add user
+              <i class="fas fa-plus"></i> Gebruiker Toevoegen
             </button>
           </div>
           <div class="sorting-container">
             <div class="sorting-name">
               <button class="sort-button" onclick="sortUsers('name')">
-                Sort by Name
+                Sorteer op Naam
               </button>
             </div>
             <div class="sorting-status">
               <button class="sort-button" onclick="sortUsers('status')">
-                Sort by Status
+                Sorteer op Status
               </button>
             </div>
           </div>
@@ -93,13 +93,13 @@
                 <div class="user-picture">
                   <img
                     src="https://via.placeholder.com/50"
-                    alt="User Picture"
+                    alt="Gebruikersfoto"
                   />
                 </div>
                 <div class="user-name">John Doe</div>
                 <div class="user-email">john.doe@example.com</div>
-                <div class="user-hours">8 hours</div>
-                <div class="user-status clocked-in">Clocked In</div>
+                <div class="user-hours">8 uur</div>
+                <div class="user-status clocked-in">Ingeklokt</div>
               </div>
               <div class="additional-details">
                 <div class="detail-container">
@@ -114,13 +114,13 @@
                 <div class="user-picture">
                   <img
                     src="https://via.placeholder.com/50"
-                    alt="User Picture"
+                    alt="Gebruikersfoto"
                   />
                 </div>
                 <div class="user-name">Jane Smith</div>
                 <div class="user-email">jane.smith@example.com</div>
                 <div class="user-hours">-</div>
-                <div class="user-status">Clocked Out</div>
+                <div class="user-status">Uitgeklokt</div>
               </div>
               <div class="additional-details">
                 <div class="detail-container">
@@ -130,33 +130,33 @@
                 </div>
               </div>
             </div>
-            <!-- Add more user-details divs as needed -->
+            <!-- Voeg meer user-details divs toe indien nodig -->
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Pop-up form -->
+    <!-- Pop-up formulier -->
     <div id="popup-form" class="popup-form">
       <% if (user.role_id === 3) { %>
-      <h2>Add New User</h2>
+      <h2>Nieuwe Gebruiker Toevoegen</h2>
       <% if (error) { %>
       <p style="color: red"><%= error %></p>
       <% } %>
       <form action="/users/register" method="post">
-        <label for="name">Name:</label>
+        <label for="name">Naam:</label>
         <input type="text" id="name" name="name" required />
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required />
-        <label for="password">Password:</label>
+        <label for="password">Wachtwoord:</label>
         <input type="password" id="password" name="password" required />
-        <label for="role_id">Role:</label>
+        <label for="role_id">Rol:</label>
         <select id="role_id" name="role_id">
-          <option value="1">Employee</option>
+          <option value="1">Werknemer</option>
           <option value="2">Manager</option>
-          <option value="3">Admin</option>
+          <option value="3">Beheerder</option>
         </select>
-        <button type="submit">Register</button>
+        <button type="submit">Registreren</button>
       </form>
       <% } %>
     </div>

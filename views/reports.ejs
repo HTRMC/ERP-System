@@ -13,7 +13,7 @@
               <div class="menu-icon">
                 <img
                   src="/images/hamburger.png"
-                  alt="menu-button"
+                  alt="menu-knop"
                   draggable="false"
                 />
               </div>
@@ -35,27 +35,27 @@
               <li>
                 <a href="/projects">
                   <i class="icon-ui-elements"></i>
-                  <span>Projects</span>
+                  <span>Projecten</span>
                 </a>
               </li>
               <% if (user.role_id === 3) { %>
               <li>
                 <a href="/users">
                   <i class="icon-form-elements"></i>
-                  <span>Users</span>
+                  <span>Gebruikers</span>
                 </a>
               </li>
               <% } %>
               <li>
                 <a href="/reports/hours">
                   <i class="icon-tables"></i>
-                  <span>Reports</span>
+                  <span>Rapporten</span>
                 </a>
               </li>
               <li>
                 <a href="/invoices">
                   <i class="icon-icons"></i>
-                  <span>Invoices</span>
+                  <span>Facturen</span>
                 </a>
               </li>
             </ul>
@@ -65,27 +65,27 @@
         <div class="container">
           <div class="top-container">
             <button class="dashboard-button" href="/dashboard">
-              Back to dashboard
+              Terug naar dashboard
             </button>
             <div class="search-bar">
               <i class="fas fa-search"></i>
-              <input type="search" name="search" placeholder="Search" />
+              <input type="search" name="search" placeholder="Zoeken" />
             </div>
           </div>
           <div class="sorting-container">
             <div class="sorting-name">
               <button class="sort-button" onclick="sortReports('project')">
-                Sort by Project
+                Sorteer op Project
               </button>
             </div>
             <div class="sorting-period">
               <button class="sort-button" onclick="sortReports('period')">
-                Sort by Period
+                Sorteer op Periode
               </button>
             </div>
             <div class="sorting-hours">
               <button class="sort-button" onclick="sortReports('hours')">
-                Sort by Hours Worked
+                Sorteer op Gewerkte Uren
               </button>
             </div>
           </div>
@@ -95,8 +95,8 @@
               <thead>
                 <tr>
                   <th>Project</th>
-                  <th>Period</th>
-                  <th>Hours Worked</th>
+                  <th>Periode</th>
+                  <th>Gewerkte Uren</th>
                 </tr>
               </thead>
               <tbody>
@@ -110,7 +110,7 @@
               </tbody>
             </table>
             <% } else { %>
-            <p>No data available for the selected period.</p>
+            <p>Geen gegevens beschikbaar voor de geselecteerde periode.</p>
             <% } %>
           </div>
         </div>

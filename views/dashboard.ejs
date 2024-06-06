@@ -13,7 +13,7 @@
           <div class="menu-container">
             <div class="top-menu-container">
               <div class="menu-icon">
-                <img src="/images/hamburger.png" alt="menu-button" draggable="false"/>
+                <img src="/images/hamburger.png" alt="menu-knop" draggable="false"/>
               </div>
               <div class="logo">
                 <img src="/images/logo.png" alt="Logo" draggable="false"/>
@@ -33,27 +33,27 @@
               <li>
                 <a href="/projects">
                   <i class="icon-ui-elements"></i>
-                  <span>Projects</span>
+                  <span>Projecten</span>
                 </a>
               </li>
               <% if (user.role_id === 3) { %>
               <li>
                 <a href="/users">
                   <i class="icon-form-elements"></i>
-                  <span>Users</span>
+                  <span>Gebruikers</span>
                 </a>
               </li>
               <% } %>
               <li>
                 <a href="/reports/hours">
                   <i class="icon-tables"></i>
-                  <span>Reports</span>
+                  <span>Rapporten</span>
                 </a>
               </li>
               <li>
                 <a href="/invoices">
                   <i class="icon-icons"></i>
-                  <span>Invoices</span>
+                  <span>Facturen</span>
                 </a>
               </li>
             </ul>
@@ -64,7 +64,7 @@
             <div class="search-container-left">
               <div class="message-container">
                 <div class="welcome-massage">
-                  <h2>Welcome, <%= user.name %></h2>
+                  <h2>Welkom, <%= user.name %></h2>
                 </div>
                 <div class="additional-massage"></div>
               </div>
@@ -73,7 +73,7 @@
               <div class="search-bar-container">
                 <div class="search-bar">
                   <i class="fas fa-search"></i>
-                  <input type="search" name="search" placeholder="Search" />
+                  <input type="search" name="search" placeholder="Zoeken" />
                 </div>
               </div>
               <div class="account-button">
@@ -119,7 +119,7 @@
                             <% }) %>
                           </select>
                         </div>
-                        <button type="submit">Clock In</button>
+                        <button type="submit">Inklokken</button>
                       </form>
                       <% } else { %>
                       <form id="clock-out-form" action="/clock/clock-out" method="post">
@@ -131,7 +131,7 @@
                             <% }) %>
                           </select>
                         </div>
-                        <button type="submit">Clock Out</button>
+                        <button type="submit">Uitklokken</button>
                       </form>
                       <% } %>
                     </div>

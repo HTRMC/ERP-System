@@ -17,7 +17,7 @@
               <div class="menu-icon">
                 <img
                   src="/images/hamburger.png"
-                  alt="menu-button"
+                  alt="menu-knop"
                   draggable="false"
                 />
               </div>
@@ -39,27 +39,27 @@
               <li>
                 <a href="/projects" class="active">
                   <i class="icon-ui-elements"></i>
-                  <span>Projects</span>
+                  <span>Projecten</span>
                 </a>
               </li>
               <% if (user.role_id === 3) { %>
               <li>
                 <a href="/users">
                   <i class="icon-form-elements"></i>
-                  <span>Users</span>
+                  <span>Gebruikers</span>
                 </a>
               </li>
               <% } %>
               <li>
                 <a href="/reports/hours">
                   <i class="icon-tables"></i>
-                  <span>Reports</span>
+                  <span>Rapporten</span>
                 </a>
               </li>
               <li>
                 <a href="/invoices">
                   <i class="icon-icons"></i>
-                  <span>Invoices</span>
+                  <span>Facturen</span>
                 </a>
               </li>
             </ul>
@@ -69,33 +69,29 @@
           <div class="top-container">
             <div class="search-bar">
               <i class="fas fa-search"></i>
-              <input
-                type="search"
-                name="search"
-                placeholder="Search Projects"
-              />
+              <input type="search" name="search" placeholder="Zoek Projecten" />
             </div>
             <% if (user.role_id === 3 || user.role_id === 2) { %>
             <button class="add-project" onclick="toggleForm()">
-              <i class="fas fa-plus"></i> Add Project
+              <i class="fas fa-plus"></i> Project Toevoegen
             </button>
             <% } %>
           </div>
           <div class="sorting-container">
             <div class="sorting-name">
               <button class="sort-button" onclick="sortProjects('name')">
-                Sort by Name
+                Sorteer op Naam
               </button>
             </div>
             <div class="sorting-status">
               <button class="sort-button" onclick="sortProjects('status')">
-                Sort by Status
+                Sorteer op Status
               </button>
             </div>
           </div>
           <div class="content-container">
             <% if (projects.length === 0) { %>
-            <p>No projects listed.</p>
+            <p>Geen projecten vermeld.</p>
             <% } else { %> <% projects.forEach(project => { %>
             <div class="project-details" onclick="toggleDetails(this)">
               <div class="project-info">
@@ -109,15 +105,13 @@
               </div>
               <div class="additional-details">
                 <div class="detail-container">
-                  <div class="detail">Company: <%= project.company_name %></div>
+                  <div class="detail">Bedrijf: <%= project.company_name %></div>
                   <div class="detail">Contact: <%= project.contact_name %></div>
                   <div class="detail">
-                    Address: <%= project.company_address %>
+                    Adres: <%= project.company_address %>
                   </div>
-                  <div class="detail">ZIP: <%= project.company_zip %></div>
-                  <div class="detail">
-                    Country: <%= project.company_country %>
-                  </div>
+                  <div class="detail">Postcode: <%= project.company_zip %></div>
+                  <div class="detail">Land: <%= project.company_country %></div>
                 </div>
               </div>
             </div>
@@ -127,43 +121,43 @@
       </div>
     </div>
 
-    <!-- Pop-up form -->
+    <!-- Pop-up formulier -->
     <div id="popup-form" class="popup-form">
       <% if (user.role_id === 3 || user.role_id === 2) { %>
-      <h2>Add New Project</h2>
+      <h2>Nieuw Project Toevoegen</h2>
       <% if (error) { %>
       <p style="color: red"><%= error %></p>
       <% } %>
       <form action="/projects" method="post">
-        <label for="name">Name:</label>
+        <label for="name">Naam:</label>
         <input type="text" id="name" name="name" required />
-        <label for="description">Description:</label>
+        <label for="description">Beschrijving:</label>
         <input type="text" id="description" name="description" required />
-        <label for="start_date">Start Date:</label>
+        <label for="start_date">Startdatum:</label>
         <input type="date" id="start_date" name="start_date" required />
-        <label for="end_date">End Date:</label>
+        <label for="end_date">Einddatum:</label>
         <input type="date" id="end_date" name="end_date" required />
-        <label for="company_name">Company Name:</label>
+        <label for="company_name">Bedrijfsnaam:</label>
         <input type="text" id="company_name" name="company_name" required />
-        <label for="contact_name">Contact Name:</label>
+        <label for="contact_name">Contactpersoon:</label>
         <input type="text" id="contact_name" name="contact_name" required />
-        <label for="company_address">Company Address:</label>
+        <label for="company_address">Bedrijfsadres:</label>
         <input
           type="text"
           id="company_address"
           name="company_address"
           required
         />
-        <label for="company_zip">Company ZIP:</label>
+        <label for="company_zip">Postcode:</label>
         <input type="text" id="company_zip" name="company_zip" required />
-        <label for="company_country">Company Country:</label>
+        <label for="company_country">Land:</label>
         <input
           type="text"
           id="company_country"
           name="company_country"
           required
         />
-        <button type="submit">Create Project</button>
+        <button type="submit">Project Aanmaken</button>
       </form>
       <% } %>
     </div>
