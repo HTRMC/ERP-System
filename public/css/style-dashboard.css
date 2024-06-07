@@ -347,7 +347,6 @@ h3 {
 .button-container,
 form {
   display: flex;
-  justify-content: space-evenly;
   align-items: center;
   width: 100%;
   height: 100%;
@@ -363,12 +362,12 @@ form {
 }
 
 .select-container select {
-  width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 1rem;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   background-color: #fff;
   appearance: none;
 }
@@ -391,7 +390,6 @@ form {
 .form-group {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   width: 100%;
   height: 50px;
 }
@@ -420,6 +418,7 @@ form {
 #clock-in-form,
 #clock-out-form {
   display: flex;
+  justify-content: space-evenly;
 }
 
 .donut-card-container {
