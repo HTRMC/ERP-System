@@ -123,43 +123,45 @@
 
     <!-- Pop-up formulier -->
     <div id="popup-form" class="popup-form">
-      <% if (user.role_id === 3 || user.role_id === 2) { %>
-      <h2>Nieuw Project Toevoegen</h2>
-      <% if (error) { %>
-      <p style="color: red"><%= error %></p>
-      <% } %>
-      <form action="/projects" method="post">
-        <label for="name">Naam:</label>
-        <input type="text" id="name" name="name" required />
-        <label for="description">Beschrijving:</label>
-        <input type="text" id="description" name="description" required />
-        <label for="start_date">Startdatum:</label>
-        <input type="date" id="start_date" name="start_date" required />
-        <label for="end_date">Einddatum:</label>
-        <input type="date" id="end_date" name="end_date" required />
-        <label for="company_name">Bedrijfsnaam:</label>
-        <input type="text" id="company_name" name="company_name" required />
-        <label for="contact_name">Contactpersoon:</label>
-        <input type="text" id="contact_name" name="contact_name" required />
-        <label for="company_address">Bedrijfsadres:</label>
-        <input
-          type="text"
-          id="company_address"
-          name="company_address"
-          required
-        />
-        <label for="company_zip">Postcode:</label>
-        <input type="text" id="company_zip" name="company_zip" required />
-        <label for="company_country">Land:</label>
-        <input
-          type="text"
-          id="company_country"
-          name="company_country"
-          required
-        />
-        <button type="submit">Project Aanmaken</button>
-      </form>
-      <% } %>
+      <div class="form-content">
+        <% if (user.role_id === 3 || user.role_id === 2) { %>
+        <h2>Nieuw Project Toevoegen</h2>
+        <% if (error) { %>
+        <p style="color: red"><%= error %></p>
+        <% } %>
+        <form action="/projects" method="post">
+          <label for="name">Naam:</label>
+          <input type="text" id="name" name="name" required />
+          <label for="description">Beschrijving:</label>
+          <input type="text" id="description" name="description" required />
+          <label for="start_date">Startdatum:</label>
+          <input type="date" id="start_date" name="start_date" required />
+          <label for="end_date">Einddatum:</label>
+          <input type="date" id="end_date" name="end_date" required />
+          <label for="company_name">Bedrijfsnaam:</label>
+          <input type="text" id="company_name" name="company_name" required />
+          <label for="contact_name">Contactpersoon:</label>
+          <input type="text" id="contact_name" name="contact_name" required />
+          <label for="company_address">Bedrijfsadres:</label>
+          <input
+            type="text"
+            id="company_address"
+            name="company_address"
+            required
+          />
+          <label for="company_zip">Postcode:</label>
+          <input type="text" id="company_zip" name="company_zip" required />
+          <label for="company_country">Land:</label>
+          <input
+            type="text"
+            id="company_country"
+            name="company_country"
+            required
+          />
+          <button type="submit">Project Aanmaken</button>
+        </form>
+        <% } %>
+      </div>
     </div>
     <script>
       function toggleForm() {
@@ -170,6 +172,29 @@
       function toggleDetails(container) {
         container.classList.toggle("expanded");
       }
+
+      // Close the form when clicking outside of it
+      window.addEventListener("click", function (event) {
+        var popup = document.getElementById("popup-form");
+        var formContent = document.querySelector(".popup-form .form-content");
+        if (
+          popup.classList.contains("show") &&
+          !formContent.contains(event.target) &&
+          event.target !== document.querySelector(".add-project")
+        ) {
+          toggleForm();
+        }
+      });
+
+      // Close the form when pressing the "Esc" key
+      window.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+          var popup = document.getElementById("popup-form");
+          if (popup.classList.contains("show")) {
+            toggleForm();
+          }
+        }
+      });
     </script>
   </body>
 </html>
