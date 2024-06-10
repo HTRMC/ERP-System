@@ -117,6 +117,11 @@
             </div>
             <% }) %> <% } %>
           </div>
+          <div class="pagination-controls">
+            <button id="prev-page" onclick="changePage(-1)">Vorige</button>
+            <span id="page-info">Page 1 of 1</span>
+            <button id="next-page" onclick="changePage(1)">Volgende</button>
+          </div>
         </div>
       </div>
     </div>
@@ -164,13 +169,24 @@
       </div>
     </div>
     <script>
+      function toggleDetails(container) {
+        // Close all other expanded project details
+        const expandedProjects = document.querySelectorAll(
+          ".project-details.expanded"
+        );
+        expandedProjects.forEach((project) => {
+          if (project !== container) {
+            project.classList.remove("expanded");
+          }
+        });
+
+        // Toggle the expansion of the clicked project detail
+        container.classList.toggle("expanded");
+      }
+
       function toggleForm() {
         var popup = document.getElementById("popup-form");
         popup.classList.toggle("show");
-      }
-
-      function toggleDetails(container) {
-        container.classList.toggle("expanded");
       }
 
       // Close the form when clicking outside of it
@@ -194,6 +210,44 @@
             toggleForm();
           }
         }
+      });
+
+      const projectsPerPage = 5; // Number of projects to display per page
+      let currentPage = 1;
+
+      function displayProjects(page) {
+        const projectContainers = document.querySelectorAll(".project-details");
+        const totalProjects = projectContainers.length;
+        const totalPages = Math.ceil(totalProjects / projectsPerPage);
+
+        // Hide all project containers
+        projectContainers.forEach(
+          (project) => (project.style.display = "none")
+        );
+
+        // Display only the projects for the current page
+        const start = (page - 1) * projectsPerPage;
+        const end = start + projectsPerPage;
+        for (let i = start; i < end && i < totalProjects; i++) {
+          projectContainers[i].style.display = "flex";
+        }
+
+        // Update page info and buttons
+        document.getElementById(
+          "page-info"
+        ).textContent = `Page ${page} of ${totalPages}`;
+        document.getElementById("prev-page").disabled = page === 1;
+        document.getElementById("next-page").disabled = page === totalPages;
+      }
+
+      function changePage(delta) {
+        currentPage += delta;
+        displayProjects(currentPage);
+      }
+
+      // Initialize pagination
+      document.addEventListener("DOMContentLoaded", () => {
+        displayProjects(currentPage);
       });
     </script>
   </body>

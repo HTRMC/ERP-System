@@ -39,7 +39,7 @@ body {
 .sidebar-container {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: 100vh;
   width: 13%;
   background-color: var(--main-container);
 }
@@ -142,7 +142,7 @@ body {
   display: flex;
   flex-direction: column;
   width: 85%;
-  height: 100%;
+  height: 96%;
   background-color: var(--main-container);
   padding: 20px;
 }
@@ -227,6 +227,7 @@ body {
 
 .project-details {
   background-color: white;
+  flex-direction: column;
   padding: 20px;
   border-radius: 5px;
   cursor: pointer;
@@ -244,6 +245,23 @@ body {
 .detail-container {
   display: flex;
   flex-direction: column;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination-controls button {
+  background-color: var(--gilde-blue);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 5px;
 }
 
 .popup-form {

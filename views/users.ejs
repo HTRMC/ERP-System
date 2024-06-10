@@ -130,7 +130,119 @@
                 </div>
               </div>
             </div>
+            <div class="user-details" onclick="toggleDetails(this)">
+              <div class="user-info">
+                <div class="user-picture">
+                  <img
+                    src="https://via.placeholder.com/50"
+                    alt="Gebruikersfoto"
+                  />
+                </div>
+                <div class="user-name">Jane Smith</div>
+                <div class="user-email">jane.smith@example.com</div>
+                <div class="user-hours">-</div>
+                <div class="user-status">Uitgeklokt</div>
+              </div>
+              <div class="additional-details">
+                <div class="detail-container">
+                  <div class="detail">Detail 1</div>
+                  <div class="detail">Detail 2</div>
+                  <div class="detail">Detail 3</div>
+                </div>
+              </div>
+            </div>
+            <div class="user-details" onclick="toggleDetails(this)">
+              <div class="user-info">
+                <div class="user-picture">
+                  <img
+                    src="https://via.placeholder.com/50"
+                    alt="Gebruikersfoto"
+                  />
+                </div>
+                <div class="user-name">Jane Smith</div>
+                <div class="user-email">jane.smith@example.com</div>
+                <div class="user-hours">-</div>
+                <div class="user-status">Uitgeklokt</div>
+              </div>
+              <div class="additional-details">
+                <div class="detail-container">
+                  <div class="detail">Detail 1</div>
+                  <div class="detail">Detail 2</div>
+                  <div class="detail">Detail 3</div>
+                </div>
+              </div>
+            </div>
+            <div class="user-details" onclick="toggleDetails(this)">
+              <div class="user-info">
+                <div class="user-picture">
+                  <img
+                    src="https://via.placeholder.com/50"
+                    alt="Gebruikersfoto"
+                  />
+                </div>
+                <div class="user-name">Jane Smith</div>
+                <div class="user-email">jane.smith@example.com</div>
+                <div class="user-hours">-</div>
+                <div class="user-status">Uitgeklokt</div>
+              </div>
+              <div class="additional-details">
+                <div class="detail-container">
+                  <div class="detail">Detail 1</div>
+                  <div class="detail">Detail 2</div>
+                  <div class="detail">Detail 3</div>
+                </div>
+              </div>
+            </div>
+            <div class="user-details" onclick="toggleDetails(this)">
+              <div class="user-info">
+                <div class="user-picture">
+                  <img
+                    src="https://via.placeholder.com/50"
+                    alt="Gebruikersfoto"
+                  />
+                </div>
+                <div class="user-name">Jane Smith</div>
+                <div class="user-email">jane.smith@example.com</div>
+                <div class="user-hours">-</div>
+                <div class="user-status">Uitgeklokt</div>
+              </div>
+              <div class="additional-details">
+                <div class="detail-container">
+                  <div class="detail">Detail 1</div>
+                  <div class="detail">Detail 2</div>
+                  <div class="detail">Detail 3</div>
+                </div>
+              </div>
+            </div>
+            <div class="user-details" onclick="toggleDetails(this)">
+              <div class="user-info">
+                <div class="user-picture">
+                  <img
+                    src="https://via.placeholder.com/50"
+                    alt="Gebruikersfoto"
+                  />
+                </div>
+                <div class="user-name">Jane Smith</div>
+                <div class="user-email">jane.smith@example.com</div>
+                <div class="user-hours">-</div>
+                <div class="user-status">Uitgeklokt</div>
+              </div>
+              <div class="additional-details">
+                <div class="detail-container">
+                  <div class="detail">Detail 1</div>
+                  <div class="detail">Detail 2</div>
+                  <div class="detail">Detail 3</div>
+                </div>
+              </div>
+            </div>
+
             <!-- Voeg meer user-details divs toe indien nodig -->
+          </div>
+
+          <div class="pagination">
+            <button id="prev-page" onclick="changePage(-1)">Vorige</button>
+            <span id="page-info"></span>
+            <button id="next-page" onclick="changePage(1)">Volgende</button>
           </div>
         </div>
       </div>
@@ -160,40 +272,77 @@
           <button type="submit">Registreren</button>
         </form>
         <% } %>
+        <button onclick="toggleForm()">Sluiten</button>
       </div>
     </div>
 
     <script>
+      function toggleDetails(element) {
+        const details = element.querySelector(".additional-details");
+        const isVisible = details.style.display === "block";
+
+        document
+          .querySelectorAll(".additional-details")
+          .forEach((detail) => (detail.style.display = "none"));
+
+        details.style.display = isVisible ? "none" : "block";
+      }
+
       function toggleForm() {
-        var popup = document.getElementById("popup-form");
-        popup.classList.toggle("show");
+        const form = document.getElementById("popup-form");
+        form.style.display = form.style.display === "block" ? "none" : "block";
       }
 
-      function toggleDetails(container) {
-        container.classList.toggle("expanded");
+      function sortUsers(criteria) {
+        const container = document.querySelector(".content-container");
+        const users = Array.from(
+          container.getElementsByClassName("user-details")
+        );
+
+        users.sort((a, b) => {
+          const aValue = a.querySelector(`.user-${criteria}`).innerText;
+          const bValue = b.querySelector(`.user-${criteria}`).innerText;
+          return aValue.localeCompare(bValue);
+        });
+
+        container.innerHTML = "";
+        users.forEach((user) => container.appendChild(user));
       }
 
-      // Close the form when clicking outside of it
-      window.addEventListener("click", function (event) {
-        var popup = document.getElementById("popup-form");
-        var formContent = document.querySelector(".popup-form .form-content");
-        if (
-          popup.classList.contains("show") &&
-          !formContent.contains(event.target) &&
-          event.target !== document.querySelector(".add-user")
-        ) {
-          toggleForm();
-        }
-      });
+      const usersPerPage = 5; // Number of users to display per page
+      let currentPage = 1;
 
-      // Close the form when pressing the "Esc" key
-      window.addEventListener("keydown", function (event) {
-        if (event.key === "Escape") {
-          var popup = document.getElementById("popup-form");
-          if (popup.classList.contains("show")) {
-            toggleForm();
-          }
+      function displayUsers(page) {
+        const userContainers = document.querySelectorAll(".user-details");
+        const totalUsers = userContainers.length;
+        const totalPages = Math.ceil(totalUsers / usersPerPage);
+
+        // Hide all user containers
+        userContainers.forEach((user) => (user.style.display = "none"));
+
+        // Display only the users for the current page
+        const start = (page - 1) * usersPerPage;
+        const end = start + usersPerPage;
+        for (let i = start; i < end && i < totalUsers; i++) {
+          userContainers[i].style.display = "flex";
         }
+
+        // Update page info and buttons
+        document.getElementById(
+          "page-info"
+        ).textContent = `Page ${page} of ${totalPages}`;
+        document.getElementById("prev-page").disabled = page === 1;
+        document.getElementById("next-page").disabled = page === totalPages;
+      }
+
+      function changePage(delta) {
+        currentPage += delta;
+        displayUsers(currentPage);
+      }
+
+      // Initialize pagination
+      document.addEventListener("DOMContentLoaded", () => {
+        displayUsers(currentPage);
       });
     </script>
   </body>

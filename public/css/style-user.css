@@ -423,3 +423,31 @@ body {
 .popup-form button[type="submit"]:hover {
   background-color: #195f99;
 }
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.pagination button {
+  padding: 10px 20px;
+  background-color: white;
+  color: #888;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin: 0 10px;
+}
+
+.pagination button:hover {
+  background-color: lightgrey;
+}
+
+.pagination span {
+  margin: 0 10px;
+  font-size: 18px;
+  color: var(--gilde-blue);
+}
