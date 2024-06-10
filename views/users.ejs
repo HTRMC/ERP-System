@@ -138,28 +138,31 @@
 
     <!-- Pop-up formulier -->
     <div id="popup-form" class="popup-form">
-      <% if (user.role_id === 3) { %>
-      <h2>Nieuwe Gebruiker Toevoegen</h2>
-      <% if (error) { %>
-      <p style="color: red"><%= error %></p>
-      <% } %>
-      <form action="/users/register" method="post">
-        <label for="name">Naam:</label>
-        <input type="text" id="name" name="name" required />
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required />
-        <label for="password">Wachtwoord:</label>
-        <input type="password" id="password" name="password" required />
-        <label for="role_id">Rol:</label>
-        <select id="role_id" name="role_id">
-          <option value="1">Werknemer</option>
-          <option value="2">Manager</option>
-          <option value="3">Beheerder</option>
-        </select>
-        <button type="submit">Registreren</button>
-      </form>
-      <% } %>
+      <div class="form-content">
+        <% if (user.role_id === 3) { %>
+        <h2>Nieuwe Gebruiker Toevoegen</h2>
+        <% if (error) { %>
+        <p style="color: red"><%= error %></p>
+        <% } %>
+        <form action="/users/register" method="post">
+          <label for="name">Naam:</label>
+          <input type="text" id="name" name="name" required />
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required />
+          <label for="password">Wachtwoord:</label>
+          <input type="password" id="password" name="password" required />
+          <label for="role_id">Rol:</label>
+          <select id="role_id" name="role_id">
+            <option value="1">Werknemer</option>
+            <option value="2">Manager</option>
+            <option value="3">Beheerder</option>
+          </select>
+          <button type="submit">Registreren</button>
+        </form>
+        <% } %>
+      </div>
     </div>
+
     <script>
       function toggleForm() {
         var popup = document.getElementById("popup-form");
@@ -169,6 +172,29 @@
       function toggleDetails(container) {
         container.classList.toggle("expanded");
       }
+
+      // Close the form when clicking outside of it
+      window.addEventListener("click", function (event) {
+        var popup = document.getElementById("popup-form");
+        var formContent = document.querySelector(".popup-form .form-content");
+        if (
+          popup.classList.contains("show") &&
+          !formContent.contains(event.target) &&
+          event.target !== document.querySelector(".add-user")
+        ) {
+          toggleForm();
+        }
+      });
+
+      // Close the form when pressing the "Esc" key
+      window.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+          var popup = document.getElementById("popup-form");
+          if (popup.classList.contains("show")) {
+            toggleForm();
+          }
+        }
+      });
     </script>
   </body>
 </html>
