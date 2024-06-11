@@ -275,7 +275,6 @@
         <button onclick="toggleForm()">Sluiten</button>
       </div>
     </div>
-
     <script>
       function toggleDetails(element) {
         const details = element.querySelector(".additional-details");
@@ -288,8 +287,8 @@
         details.style.display = isVisible ? "none" : "block";
       }
 
-      function toggleForm() {
-        const form = document.getElementById("popup-form");
+      function toggleForm(formId) {
+        const form = document.getElementById(formId);
         form.style.display = form.style.display === "block" ? "none" : "block";
       }
 
@@ -339,6 +338,31 @@
         currentPage += delta;
         displayUsers(currentPage);
       }
+
+      // Close the form when clicking outside of it or pressing "Esc" key
+      window.addEventListener("click", function (event) {
+        const forms = document.querySelectorAll(".popup-form");
+        forms.forEach((form) => {
+          if (
+            form.style.display === "block" &&
+            !form.contains(event.target) &&
+            event.target !== document.querySelector(".add-user")
+          ) {
+            form.style.display = "none";
+          }
+        });
+      });
+
+      window.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+          const forms = document.querySelectorAll(".popup-form");
+          forms.forEach((form) => {
+            if (form.style.display === "block") {
+              form.style.display = "none";
+            }
+          });
+        }
+      });
 
       // Initialize pagination
       document.addEventListener("DOMContentLoaded", () => {
