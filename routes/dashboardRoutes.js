@@ -8,6 +8,7 @@ const router = express.Router();
 router.get('/', ensureAuthenticated, async (req, res) => {
   try {
     const projects = await Project.findAll();
+    const companiesWithProjectCount = await Project.getCompaniesWithProjectCount();
     const lastClockEntry = await ClockEntry.getLastClockEntry(req.user.id);
     const isClockedIn = lastClockEntry && !lastClockEntry.clock_out_time;
     const hoursByProject = await ClockEntry.getTotalHoursByProject(req.user.id);
@@ -19,7 +20,8 @@ router.get('/', ensureAuthenticated, async (req, res) => {
       isClockedIn, 
       lastClockEntry,
       hoursByProject,
-      totalHoursCurrentYear
+      totalHoursCurrentYear,
+      companiesWithProjectCount
     });
   } catch (err) {
     res.status(500).send('Server error');

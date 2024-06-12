@@ -3,10 +3,7 @@
   <head>
     <title>Users</title>
     <link rel="stylesheet" href="/css/style-user.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   </head>
   <body>
     <div class="main-container">
@@ -15,11 +12,7 @@
           <div class="menu-container">
             <div class="top-menu-container">
               <div class="menu-icon">
-                <img
-                  src="/images/hamburger.png"
-                  alt="menu-knop"
-                  draggable="false"
-                />
+                <img src="/images/hamburger.png" alt="menu-knop" draggable="false" />
               </div>
               <div class="logo">
                 <img src="/images/logo.png" alt="Logo" draggable="false" />
@@ -71,174 +64,42 @@
               <i class="fas fa-search"></i>
               <input type="search" name="search" placeholder="Zoeken" />
             </div>
-            <button class="add-user" onclick="toggleForm()">
+            <button class="add-user" onclick="toggleForm('popup-form')">
               <i class="fas fa-plus"></i> Gebruiker Toevoegen
             </button>
           </div>
           <div class="sorting-container">
             <div class="sorting-name">
-              <button class="sort-button" onclick="sortUsers('name')">
-                Sorteer op Naam
-              </button>
+              <button class="sort-button" onclick="sortUsers('name')">Sorteer op Naam</button>
             </div>
             <div class="sorting-status">
-              <button class="sort-button" onclick="sortUsers('status')">
-                Sorteer op Status
-              </button>
+              <button class="sort-button" onclick="sortUsers('status')">Sorteer op Status</button>
             </div>
           </div>
           <div class="content-container">
-            <div class="user-details" onclick="toggleDetails(this)">
-              <div class="user-info">
-                <div class="user-picture">
-                  <img
-                    src="https://via.placeholder.com/50"
-                    alt="Gebruikersfoto"
-                  />
+            <% users.forEach(user => { %>
+              <div class="user-details" onclick="toggleDetails(this)">
+                <div class="user-info">
+                  <div class="user-picture">
+                    <img src="https://via.placeholder.com/50" alt="Gebruikersfoto" />
+                  </div>
+                  <div class="user-name"><%= user.name %></div>
+                  <div class="user-email"><%= user.email %></div>
+                  <div class="user-hours"><%= user.hours ? user.hours + ' uur' : '-' %></div>
+                  <div class="user-status <%= user.status === 'clocked-in' ? 'clocked-in' : 'clocked-out' %>">
+                    <%= user.status === 'clocked-in' ? 'Ingeklokt' : 'Uitgeklokt' %>
+                  </div>
                 </div>
-                <div class="user-name">John Doe</div>
-                <div class="user-email">john.doe@example.com</div>
-                <div class="user-hours">8 uur</div>
-                <div class="user-status clocked-in">Ingeklokt</div>
-              </div>
-              <div class="additional-details">
-                <div class="detail-container">
-                  <div class="detail">Detail 1</div>
-                  <div class="detail">Detail 2</div>
-                  <div class="detail">Detail 3</div>
-                </div>
-              </div>
-            </div>
-            <div class="user-details" onclick="toggleDetails(this)">
-              <div class="user-info">
-                <div class="user-picture">
-                  <img
-                    src="https://via.placeholder.com/50"
-                    alt="Gebruikersfoto"
-                  />
-                </div>
-                <div class="user-name">Jane Smith</div>
-                <div class="user-email">jane.smith@example.com</div>
-                <div class="user-hours">-</div>
-                <div class="user-status">Uitgeklokt</div>
-              </div>
-              <div class="additional-details">
-                <div class="detail-container">
-                  <div class="detail">Detail 1</div>
-                  <div class="detail">Detail 2</div>
-                  <div class="detail">Detail 3</div>
+                <div class="additional-details">
+                  <div class="detail-container">
+                    <div class="detail">Rol: <%= user.role %></div>
+                    <div class="detail">Detail 2</div>
+                    <div class="detail">Detail 3</div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="user-details" onclick="toggleDetails(this)">
-              <div class="user-info">
-                <div class="user-picture">
-                  <img
-                    src="https://via.placeholder.com/50"
-                    alt="Gebruikersfoto"
-                  />
-                </div>
-                <div class="user-name">Jane Smith</div>
-                <div class="user-email">jane.smith@example.com</div>
-                <div class="user-hours">-</div>
-                <div class="user-status">Uitgeklokt</div>
-              </div>
-              <div class="additional-details">
-                <div class="detail-container">
-                  <div class="detail">Detail 1</div>
-                  <div class="detail">Detail 2</div>
-                  <div class="detail">Detail 3</div>
-                </div>
-              </div>
-            </div>
-            <div class="user-details" onclick="toggleDetails(this)">
-              <div class="user-info">
-                <div class="user-picture">
-                  <img
-                    src="https://via.placeholder.com/50"
-                    alt="Gebruikersfoto"
-                  />
-                </div>
-                <div class="user-name">Jane Smith</div>
-                <div class="user-email">jane.smith@example.com</div>
-                <div class="user-hours">-</div>
-                <div class="user-status">Uitgeklokt</div>
-              </div>
-              <div class="additional-details">
-                <div class="detail-container">
-                  <div class="detail">Detail 1</div>
-                  <div class="detail">Detail 2</div>
-                  <div class="detail">Detail 3</div>
-                </div>
-              </div>
-            </div>
-            <div class="user-details" onclick="toggleDetails(this)">
-              <div class="user-info">
-                <div class="user-picture">
-                  <img
-                    src="https://via.placeholder.com/50"
-                    alt="Gebruikersfoto"
-                  />
-                </div>
-                <div class="user-name">Jane Smith</div>
-                <div class="user-email">jane.smith@example.com</div>
-                <div class="user-hours">-</div>
-                <div class="user-status">Uitgeklokt</div>
-              </div>
-              <div class="additional-details">
-                <div class="detail-container">
-                  <div class="detail">Detail 1</div>
-                  <div class="detail">Detail 2</div>
-                  <div class="detail">Detail 3</div>
-                </div>
-              </div>
-            </div>
-            <div class="user-details" onclick="toggleDetails(this)">
-              <div class="user-info">
-                <div class="user-picture">
-                  <img
-                    src="https://via.placeholder.com/50"
-                    alt="Gebruikersfoto"
-                  />
-                </div>
-                <div class="user-name">Jane Smith</div>
-                <div class="user-email">jane.smith@example.com</div>
-                <div class="user-hours">-</div>
-                <div class="user-status">Uitgeklokt</div>
-              </div>
-              <div class="additional-details">
-                <div class="detail-container">
-                  <div class="detail">Detail 1</div>
-                  <div class="detail">Detail 2</div>
-                  <div class="detail">Detail 3</div>
-                </div>
-              </div>
-            </div>
-            <div class="user-details" onclick="toggleDetails(this)">
-              <div class="user-info">
-                <div class="user-picture">
-                  <img
-                    src="https://via.placeholder.com/50"
-                    alt="Gebruikersfoto"
-                  />
-                </div>
-                <div class="user-name">Jane Smith</div>
-                <div class="user-email">jane.smith@example.com</div>
-                <div class="user-hours">-</div>
-                <div class="user-status">Uitgeklokt</div>
-              </div>
-              <div class="additional-details">
-                <div class="detail-container">
-                  <div class="detail">Detail 1</div>
-                  <div class="detail">Detail 2</div>
-                  <div class="detail">Detail 3</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Voeg meer user-details divs toe indien nodig -->
+            <% }) %>
           </div>
-
           <div class="pagination">
             <button id="prev-page" onclick="changePage(-1)">Vorige</button>
             <span id="page-info"></span>
@@ -247,7 +108,6 @@
         </div>
       </div>
     </div>
-
     <!-- Pop-up formulier -->
     <div id="popup-form" class="popup-form">
       <div class="form-content">
@@ -272,7 +132,7 @@
           <button type="submit">Registreren</button>
         </form>
         <% } %>
-        <button onclick="toggleForm()">Sluiten</button>
+        <button onclick="toggleForm('popup-form')">Sluiten</button>
       </div>
     </div>
     <script>
@@ -280,9 +140,7 @@
         const details = element.querySelector(".additional-details");
         const isVisible = details.style.display === "block";
 
-        document
-          .querySelectorAll(".additional-details")
-          .forEach((detail) => (detail.style.display = "none"));
+        document.querySelectorAll(".additional-details").forEach(detail => (detail.style.display = "none"));
 
         details.style.display = isVisible ? "none" : "block";
       }
@@ -294,9 +152,7 @@
 
       function sortUsers(criteria) {
         const container = document.querySelector(".content-container");
-        const users = Array.from(
-          container.getElementsByClassName("user-details")
-        );
+        const users = Array.from(container.getElementsByClassName("user-details"));
 
         users.sort((a, b) => {
           const aValue = a.querySelector(`.user-${criteria}`).innerText;
@@ -305,7 +161,7 @@
         });
 
         container.innerHTML = "";
-        users.forEach((user) => container.appendChild(user));
+        users.forEach(user => container.appendChild(user));
       }
 
       const usersPerPage = 5; // Number of users to display per page
@@ -317,7 +173,7 @@
         const totalPages = Math.ceil(totalUsers / usersPerPage);
 
         // Hide all user containers
-        userContainers.forEach((user) => (user.style.display = "none"));
+        userContainers.forEach(user => (user.style.display = "none"));
 
         // Display only the users for the current page
         const start = (page - 1) * usersPerPage;
@@ -327,9 +183,7 @@
         }
 
         // Update page info and buttons
-        document.getElementById(
-          "page-info"
-        ).textContent = `Page ${page} of ${totalPages}`;
+        document.getElementById("page-info").textContent = `Page ${page} of ${totalPages}`;
         document.getElementById("prev-page").disabled = page === 1;
         document.getElementById("next-page").disabled = page === totalPages;
       }
@@ -342,12 +196,8 @@
       // Close the form when clicking outside of it or pressing "Esc" key
       window.addEventListener("click", function (event) {
         const forms = document.querySelectorAll(".popup-form");
-        forms.forEach((form) => {
-          if (
-            form.style.display === "block" &&
-            !form.contains(event.target) &&
-            event.target !== document.querySelector(".add-user")
-          ) {
+        forms.forEach(form => {
+          if (form.style.display === "block" && !form.contains(event.target) && event.target !== document.querySelector(".add-user")) {
             form.style.display = "none";
           }
         });
@@ -356,7 +206,7 @@
       window.addEventListener("keydown", function (event) {
         if (event.key === "Escape") {
           const forms = document.querySelectorAll(".popup-form");
-          forms.forEach((form) => {
+          forms.forEach(form => {
             if (form.style.display === "block") {
               form.style.display = "none";
             }

@@ -151,8 +151,22 @@
                 </div>
               </div>
               <div class="rechts-cards-container">
-                <div class="opdrachten-card-container"></div>
-                <div class="top-klant-container"></div>
+                <div class="opdrachten-card-container">
+                  <h4>Projecten</h4>
+                  <ul>
+                    <% projects.forEach(project => { %>
+                      <li><%= project.name %></li>
+                    <% }) %>
+                  </ul>
+                </div>
+                <div class="top-klant-container">
+                  <h4>Top Klanten</h4>
+                  <ul>
+                    <% companiesWithProjectCount.forEach(company => { %>
+                      <li><%= company.company_name %> - <%= company.project_count %> projecten</li>
+                    <% }) %>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>

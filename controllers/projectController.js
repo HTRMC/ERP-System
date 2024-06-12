@@ -4,13 +4,15 @@ const Project = require("../models/Project");
 exports.getProjects = async (req, res) => {
   try {
     const projects = await Project.findAll();
-    res.render("projects", { projects, user: req.user, error: null });
+    const companiesWithProjectCount = await Project.getCompaniesWithProjectCount();
+    res.render("projects", { projects, user: req.user, error: null, companiesWithProjectCount });
   } catch (err) {
     console.error("Error fetching projects:", err);
     res.render("projects", {
       projects: [],
       user: req.user,
       error: "Error fetching projects",
+      companiesWithProjectCount: []
     });
   }
 };
