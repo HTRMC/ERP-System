@@ -1,251 +1,299 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Users</title>
-    <link rel="stylesheet" href="/css/style-user.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
-  </head>
-  <body>
-    <div class="main-container">
-      <div class="real-main-container">
-        <div class="sidebar-container">
-          <div class="menu-container">
-            <div class="top-menu-container">
-              <div class="menu-icon">
-                <img
-                  src="/images/hamburger.png"
-                  alt="menu-knop"
-                  draggable="false"
-                />
-              </div>
-              <div class="logo">
-                <img src="/images/logo.png" alt="Logo" draggable="false" />
-              </div>
-            </div>
-            <div class="bottom-menu-container">
-              <div class="dashboard-container">
-                <a href="/dashboard" class="dashboard">
-                  <i class="icon-dashboard"></i>
-                  <span>Dashboard</span>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="sidebar-menu">
-            <ul>
-              <li>
-                <a href="/projects">
-                  <i class="icon-ui-elements"></i>
-                  <span>Projecten</span>
-                </a>
-              </li>
-              <% if (user.role_id === 3) { %>
-              <li>
-                <a href="/users " class="active">
-                  <i class="icon-form-elements"></i>
-                  <span>Gebruikers</span>
-                </a>
-              </li>
-              <% } %>
-              <li>
-                <a href="/reports/hours">
-                  <i class="icon-tables"></i>
-                  <span>Rapporten</span>
-                </a>
-              </li>
-              <li>
-                <a href="/invoices">
-                  <i class="icon-icons"></i>
-                  <span>Facturen</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="container">
-          <div class="top-container">
-            <div class="search-bar">
-              <i class="fas fa-search"></i>
-              <input type="search" name="search" placeholder="Zoeken" />
-            </div>
-            <button class="add-user" onclick="toggleForm('popup-form')">
-              <i class="fas fa-plus"></i> Gebruiker Toevoegen
-            </button>
-          </div>
-          <div class="sorting-container">
-            <div class="sorting-name">
-              <button class="sort-button" onclick="sortUsers('name')">
-                Sorteer op Naam
-              </button>
-            </div>
-            <div class="sorting-status">
-              <button class="sort-button" onclick="sortUsers('status')">
-                Sorteer op Status
-              </button>
-            </div>
-          </div>
-          <div class="content-container">
-            <% users.forEach(user => { %>
-            <div class="user-details" onclick="toggleDetails(this)">
-              <div class="user-info">
-                <div class="user-picture">
-                  <img
-                    src="https://via.placeholder.com/50"
-                    alt="Gebruikersfoto"
-                  />
-                </div>
-                <div class="user-name"><%= user.name %></div>
-                <div class="user-email"><%= user.email %></div>
-                <div class="user-hours">
-                  <%= user.hours ? user.hours + ' uur' : '-' %>
-                </div>
-                <div
-                  class="user-status <%= user.status === 'clocked-in' ? 'clocked-in' : 'clocked-out' %>"
-                >
-                  <%= user.status === 'clocked-in' ? 'Ingeklokt' : 'Uitgeklokt'
-                  %>
-                </div>
-              </div>
-              <div class="additional-details">
-                <div class="detail-container">
-                  <div class="detail">Rol: <%= user.role %></div>
-                  <div class="detail">Detail 2</div>
-                  <div class="detail">Detail 3</div>
-                </div>
-              </div>
-            </div>
-            <% }) %>
-          </div>
-          <div class="pagination">
-            <button id="prev-page" onclick="changePage(-1)">Vorige</button>
-            <span id="page-info"></span>
-            <button id="next-page" onclick="changePage(1)">Volgende</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Pop-up formulier -->
-    <div id="popup-form" class="popup-form">
-      <div class="form-content">
-        <% if (user.role_id === 3) { %>
-        <h2>Nieuwe Gebruiker Toevoegen</h2>
-        <% if (error) { %>
-        <p style="color: red"><%= error %></p>
-        <% } %>
-        <form action="/users/register" method="post">
-          <label for="name">Naam:</label>
-          <input type="text" id="name" name="name" required />
-          <label for="email">Email:</label>
-          <input type="email" id="email" name="email" required />
-          <label for="password">Wachtwoord:</label>
-          <input type="password" id="password" name="password" required />
-          <label for="role_id">Rol:</label>
-          <select id="role_id" name="role_id">
-            <option value="1">Werknemer</option>
-            <option value="2">Manager</option>
-            <option value="3">Beheerder</option>
-          </select>
-          <button type="submit">Registreren</button>
-        </form>
-        <% } %>
-      </div>
-    </div>
-    <script>
-      function toggleDetails(element) {
-        const details = element.querySelector(".additional-details");
-        const isVisible = details.style.display === "block";
+<head>
+  <title>Users</title>
+  <link rel="stylesheet" href="/css/style-user.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  />
+  <script>
+    let currentSort = {
+      criteria: '',
+      order: 'asc'
+    };
 
-        document
-          .querySelectorAll(".additional-details")
-          .forEach((detail) => (detail.style.display = "none"));
+    function toggleDetails(element) {
+      const details = element.querySelector(".additional-details");
+      const isVisible = details.style.display === "block";
 
-        details.style.display = isVisible ? "none" : "block";
+      document
+        .querySelectorAll(".additional-details")
+        .forEach((detail) => (detail.style.display = "none"));
+
+      details.style.display = isVisible ? "none" : "block";
+    }
+
+    function toggleForm(formId) {
+      const form = document.getElementById(formId);
+      form.style.display = form.style.display === "block" ? "none" : "block";
+    }
+
+    function updateSortIcons() {
+      document.querySelectorAll('.sort-button i').forEach(icon => {
+        icon.className = 'fas';
+      });
+
+      const activeIcon = document.querySelector(`.sort-button[data-criteria="${currentSort.criteria}"] i`);
+      if (currentSort.order === 'asc') {
+        activeIcon.classList.add('fa-arrow-up');
+      } else {
+        activeIcon.classList.add('fa-arrow-down');
+      }
+    }
+
+    function sortUsers(criteria) {
+      const container = document.querySelector(".content-container");
+      const users = Array.from(container.getElementsByClassName("user-details"));
+
+      if (currentSort.criteria === criteria) {
+        currentSort.order = currentSort.order === 'asc' ? 'desc' : 'asc';
+      } else {
+        currentSort.criteria = criteria;
+        currentSort.order = 'asc';
       }
 
-      function toggleForm(formId) {
-        const form = document.getElementById(formId);
-        form.style.display = form.style.display === "block" ? "none" : "block";
-      }
+      users.sort((a, b) => {
+        let aValue = a.querySelector(`.user-${criteria}`).innerText;
+        let bValue = b.querySelector(`.user-${criteria}`).innerText;
 
-      function sortUsers(criteria) {
-        const container = document.querySelector(".content-container");
-        const users = Array.from(
-          container.getElementsByClassName("user-details")
-        );
-
-        users.sort((a, b) => {
-          const aValue = a.querySelector(`.user-${criteria}`).innerText;
-          const bValue = b.querySelector(`.user-${criteria}`).innerText;
-          return aValue.localeCompare(bValue);
-        });
-
-        container.innerHTML = "";
-        users.forEach((user) => container.appendChild(user));
-      }
-
-      const usersPerPage = 5; // Number of users to display per page
-      let currentPage = 1;
-
-      function displayUsers(page) {
-        const userContainers = document.querySelectorAll(".user-details");
-        const totalUsers = userContainers.length;
-        const totalPages = Math.ceil(totalUsers / usersPerPage);
-
-        // Hide all user containers
-        userContainers.forEach((user) => (user.style.display = "none"));
-
-        // Display only the users for the current page
-        const start = (page - 1) * usersPerPage;
-        const end = start + usersPerPage;
-        for (let i = start; i < end && i < totalUsers; i++) {
-          userContainers[i].style.display = "flex";
+        if (criteria === 'hours') {
+          aValue = parseFloat(aValue) || 0;
+          bValue = parseFloat(bValue) || 0;
         }
 
-        // Update page info and buttons
-        document.getElementById(
-          "page-info"
-        ).textContent = `Page ${page} of ${totalPages}`;
-        document.getElementById("prev-page").disabled = page === 1;
-        document.getElementById("next-page").disabled = page === totalPages;
+        const comparison = aValue.localeCompare
+          ? aValue.localeCompare(bValue)
+          : aValue - bValue;
+
+        return currentSort.order === 'asc' ? comparison : -comparison;
+      });
+
+      container.innerHTML = "";
+      users.forEach((user) => container.appendChild(user));
+
+      updateSortIcons();
+    }
+
+    function filterUsers() {
+      const query = document.querySelector('.search-bar input').value.toLowerCase();
+      const users = document.querySelectorAll('.user-details');
+
+      users.forEach(user => {
+        const name = user.querySelector('.user-name').innerText.toLowerCase();
+        const email = user.querySelector('.user-email').innerText.toLowerCase();
+        const match = name.includes(query) || email.includes(query);
+        user.style.display = match ? 'flex' : 'none';
+      });
+    }
+
+    const usersPerPage = 5; // Number of users to display per page
+    let currentPage = 1;
+
+    function displayUsers(page) {
+      const userContainers = document.querySelectorAll(".user-details");
+      const totalUsers = userContainers.length;
+      const totalPages = Math.ceil(totalUsers / usersPerPage);
+
+      // Hide all user containers
+      userContainers.forEach((user) => (user.style.display = "none"));
+
+      // Display only the users for the current page
+      const start = (page - 1) * usersPerPage;
+      const end = start + usersPerPage;
+      for (let i = start; i < end && i < totalUsers; i++) {
+        userContainers[i].style.display = "flex";
       }
 
-      function changePage(delta) {
-        currentPage += delta;
-        displayUsers(currentPage);
-      }
+      // Update page info and buttons
+      document.getElementById(
+        "page-info"
+      ).textContent = `Page ${page} of ${totalPages}`;
+      document.getElementById("prev-page").disabled = page === 1;
+      document.getElementById("next-page").disabled = page === totalPages;
+    }
 
-      // Close the form when clicking outside of it or pressing "Esc" key
-      window.addEventListener("click", function (event) {
+    function changePage(delta) {
+      currentPage += delta;
+      displayUsers(currentPage);
+    }
+
+    // Close the form when clicking outside of it or pressing "Esc" key
+    window.addEventListener("click", function (event) {
+      const forms = document.querySelectorAll(".popup-form");
+      forms.forEach((form) => {
+        if (
+          form.style.display === "block" &&
+          !form.contains(event.target) &&
+          event.target !== document.querySelector(".add-user")
+        ) {
+          form.style.display = "none";
+        }
+      });
+    });
+
+    window.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") {
         const forms = document.querySelectorAll(".popup-form");
         forms.forEach((form) => {
-          if (
-            form.style.display === "block" &&
-            !form.contains(event.target) &&
-            event.target !== document.querySelector(".add-user")
-          ) {
+          if (form.style.display === "block") {
             form.style.display = "none";
           }
         });
-      });
+      }
+    });
 
-      window.addEventListener("keydown", function (event) {
-        if (event.key === "Escape") {
-          const forms = document.querySelectorAll(".popup-form");
-          forms.forEach((form) => {
-            if (form.style.display === "block") {
-              form.style.display = "none";
-            }
-          });
-        }
-      });
-
-      // Initialize pagination
-      document.addEventListener("DOMContentLoaded", () => {
-        displayUsers(currentPage);
-      });
-    </script>
-  </body>
+    // Initialize pagination
+    document.addEventListener("DOMContentLoaded", () => {
+      displayUsers(currentPage);
+      updateSortIcons();
+    });
+  </script>
+</head>
+<body>
+  <div class="main-container">
+    <div class="real-main-container">
+      <div class="sidebar-container">
+        <div class="menu-container">
+          <div class="top-menu-container">
+            <div class="menu-icon">
+              <img
+                src="/images/hamburger.png"
+                alt="menu-knop"
+                draggable="false"
+              />
+            </div>
+            <div class="logo">
+              <img src="/images/logo.png" alt="Logo" draggable="false" />
+            </div>
+          </div>
+          <div class="bottom-menu-container">
+            <div class="dashboard-container">
+              <a href="/dashboard" class="dashboard">
+                <i class="icon-dashboard"></i>
+                <span>Dashboard</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-menu">
+          <ul>
+            <li>
+              <a href="/projects">
+                <i class="icon-ui-elements"></i>
+                <span>Projecten</span>
+              </a>
+            </li>
+            <% if (user.role_id === 3) { %>
+            <li>
+              <a href="/users " class="active">
+                <i class="icon-form-elements"></i>
+                <span>Gebruikers</span>
+              </a>
+            </li>
+            <% } %>
+            <li>
+              <a href="/reports/hours">
+                <i class="icon-tables"></i>
+                <span>Rapporten</span>
+              </a>
+            </li>
+            <li>
+              <a href="/invoices">
+                <i class="icon-icons"></i>
+                <span>Facturen</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="container">
+        <div class="top-container">
+          <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="search" name="search" placeholder="Zoeken" oninput="filterUsers()" />
+          </div>
+          <button class="add-user" onclick="toggleForm('popup-form')">
+            <i class="fas fa-plus"></i> Gebruiker Toevoegen
+          </button>
+        </div>
+        <div class="sorting-container">
+          <div class="sorting-name">
+            <button class="sort-button" onclick="sortUsers('name')" data-criteria="name">
+              Sorteer op Naam <i class="fas"></i>
+            </button>
+          </div>
+          <div class="sorting-status">
+            <button class="sort-button" onclick="sortUsers('status')" data-criteria="status">
+              Sorteer op Status <i class="fas"></i>
+            </button>
+          </div>
+        </div>
+        <div class="content-container">
+          <% users.forEach(user => { %>
+          <div class="user-details" onclick="toggleDetails(this)">
+            <div class="user-info">
+              <div class="user-picture">
+                <img
+                  src="https://via.placeholder.com/50"
+                  alt="Gebruikersfoto"
+                />
+              </div>
+              <div class="user-name"><%= user.name %></div>
+              <div class="user-email"><%= user.email %></div>
+              <div class="user-hours">
+                <%= user.hours ? user.hours + ' uur' : '-' %>
+              </div>
+              <div
+                class="user-status <%= user.status === 'clocked-in' ? 'clocked-in' : 'clocked-out' %>"
+              >
+                <%= user.status === 'clocked-in' ? 'Ingeklokt' : 'Uitgeklokt'
+                %>
+              </div>
+            </div>
+            <div class="additional-details">
+              <div class="detail-container">
+                <div class="detail">Rol: <%= user.role %></div>
+                <div class="detail">Detail 2</div>
+                <div class="detail">Detail 3</div>
+              </div>
+            </div>
+          </div>
+          <% }) %>
+        </div>
+        <div class="pagination">
+          <button id="prev-page" onclick="changePage(-1)">Vorige</button>
+          <span id="page-info"></span>
+          <button id="next-page" onclick="changePage(1)">Volgende</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Pop-up formulier -->
+  <div id="popup-form" class="popup-form">
+    <div class="form-content">
+      <% if (user.role_id === 3) { %>
+      <h2>Nieuwe Gebruiker Toevoegen</h2>
+      <% if (error) { %>
+      <p style="color: red"><%= error %></p>
+      <% } %>
+      <form action="/users/register" method="post">
+        <label for="name">Naam:</label>
+        <input type="text" id="name" name="name" required />
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required />
+        <label for="password">Wachtwoord:</label>
+        <input type="password" id="password" name="password" required />
+        <label for="role_id">Rol:</label>
+        <select id="role_id" name="role_id">
+          <option value="1">Werknemer</option>
+          <option value="2">Manager</option>
+          <option value="3">Beheerder</option>
+        </select>
+        <button type="submit">Registreren</button>
+      </form>
+      <% } %>
+    </div>
+  </div>
+</body>
 </html>
