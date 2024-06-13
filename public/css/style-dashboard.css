@@ -103,7 +103,7 @@ body {
   justify-content: center;
   align-items: center;
   width: 90%;
-  height: 55%;
+  height: 60%;
   border-radius: 0 20px 20px 0;
   background-color: white;
   font-weight: bold;
@@ -427,7 +427,7 @@ form {
   align-items: center;
   padding: 20px;
   width: 90%;
-  height: 48%;
+  height: 42%;
   border-radius: 10px;
   background-color: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -469,4 +469,57 @@ form {
   border-radius: 10px;
   background-color: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Opdrachten Card Container */
+.opdrachten-card-container,
+.top-klant-container {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.opdrachten-card-container h4,
+.top-klant-container h4 {
+  margin-bottom: 15px;
+  font-size: 20px;
+  color: #333333;
+}
+
+.opdrachten-card-container ul,
+.top-klant-container ul {
+  padding: 0;
+}
+
+.opdrachten-card-container ul li,
+.top-klant-container ul li {
+  font-size: 16px;
+  color: #666666;
+  margin-bottom: 8px;
+}
+
+/* Opdrachten Card Container - List Item */
+.opdrachten-card-container ul li:last-child,
+.top-klant-container ul li:last-child {
+  margin-bottom: 0;
+}
+
+/* Opdrachten Card Container - List Item Icon */
+.opdrachten-card-container ul li::before,
+.top-klant-container ul li::before {
+  content: "\2022"; /* Bullet point */
+  color: #e01866; /* Icon color */
+  font-size: 10px;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+}
+
+/* Opdrachten Card Container - List Item Text */
+.opdrachten-card-container ul li,
+.top-klant-container ul li {
+  padding-left: 1em;
 }
