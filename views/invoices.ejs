@@ -95,15 +95,13 @@
         <% if (typeof error !== 'undefined') { %>
         <p style="color: red"><%= error %></p>
         <% } %>
-        <form action="/invoices/add" method="post">
+        <form action="/:invoices_id" method="post">
           <label for="project_id">Project:</label>
           <select id="project_id" name="project_id">
             <% projects.forEach(project => { %>
             <option value="<%= project.id %>"><%= project.name %></option>
             <% }) %>
           </select>
-          <label for="amount">Bedrag:</label>
-          <input type="number" id="amount" name="amount" required />
           <button type="submit">Toevoegen</button>
         </form>
         <% } %>
