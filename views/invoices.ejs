@@ -1,154 +1,140 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Invoices</title>
-    <link rel="stylesheet" href="/css/style-invoices.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
-  </head>
-  <body>
-    <div class="main-container">
-      <div class="real-main-container">
-        <div class="sidebar-container">
-          <div class="menu-container">
-            <div class="top-menu-container">
-              <div class="menu-icon">
-                <img
-                  src="/images/hamburger.png"
-                  alt="menu-knop"
-                  draggable="false"
-                />
-              </div>
-              <div class="logo">
-                <img src="/images/logo.png" alt="Logo" draggable="false" />
-              </div>
+<head>
+  <title>Invoices</title>
+  <link rel="stylesheet" href="/css/style-invoices.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+<body>
+  <div class="main-container">
+    <div class="real-main-container">
+      <div class="sidebar-container">
+        <div class="menu-container">
+          <div class="top-menu-container">
+            <div class="menu-icon">
+              <img src="/images/hamburger.png" alt="menu-knop" draggable="false" />
             </div>
-            <div class="bottom-menu-container">
-              <div class="dashboard-container">
-                <a href="/dashboard" class="dashboard">
-                  <i class="icon-dashboard"></i>
-                  <span>Dashboard</span>
-                </a>
-              </div>
+            <div class="logo">
+              <img src="/images/logo.png" alt="Logo" draggable="false" />
             </div>
           </div>
-          <div class="sidebar-menu">
-            <ul>
-              <li>
-                <a href="/projects">
-                  <i class="icon-ui-elements"></i>
-                  <span>Projecten</span>
-                </a>
-              </li>
-              <% if (user.role_id === 3) { %>
-              <li>
-                <a href="/users">
-                  <i class="icon-form-elements"></i>
-                  <span>Gebruikers</span>
-                </a>
-              </li>
-              <% } %>
-              <li>
-                <a href="/reports/hours">
-                  <i class="icon-tables"></i>
-                  <span>Rapporten</span>
-                </a>
-              </li>
-              <li>
-                <a href="/invoices" class="active">
-                  <i class="icon-icons"></i>
-                  <span>Facturen</span>
-                </a>
-              </li>
-            </ul>
+          <div class="bottom-menu-container">
+            <div class="dashboard-container">
+              <a href="/dashboard" class="dashboard">
+                <i class="icon-dashboard"></i>
+                <span>Dashboard</span>
+              </a>
+            </div>
           </div>
         </div>
-        <div class="container">
-          <div class="top-container">
-            <div class="search-bar">
-              <i class="fas fa-search"></i>
-              <input
-                type="search"
-                name="search"
-                placeholder="Zoeken naar facturen..."
-              />
-            </div>
-            <button class="add-user" onclick="toggleForm()">
-              <i class="fas fa-plus"></i> Factuur Toevoegen
-            </button>
-          </div>
-          <div class="content-container">
-            <!-- Invoice Details -->
-            <h1>Invoice Details</h1>
-            <div class="placeholder-details">
-              <div class="placeholder-detail">
-                <p><strong>Invoice ID:</strong> <%= invoice.id || 'Loading...' %></p>
-              </div>
-              <div class="placeholder-detail">
-                <p><strong>User ID:</strong> <%= invoice.user_id || 'Loading...' %></p>
-              </div>
-              <div class="placeholder-detail">
-                <p><strong>Project ID:</strong> <%= invoice.project_id || 'Loading...' %></p>
-              </div>
-              <div class="placeholder-detail">
-                <p><strong>Hours Worked:</strong> <%= invoice.hours_worked || 'Loading...' %></p>
-              </div>
-              <div class="placeholder-detail">
-                <p><strong>Date:</strong> <%= invoice.invoice_date || 'Loading...' %></p>
-              </div>
-              <!-- Add more details as needed -->
-            </div>
-            <a href="/invoices/download/<%= invoice.invoice_id %>">Download PDF</a>
-            <a href="/invoices">Back to Invoices</a>
-          </div>
-          <div class="pagination">
-            <button id="prev-page" onclick="changePage(-1)">Vorige</button>
-            <span id="page-info"></span>
-            <button id="next-page" onclick="changePage(1)">Volgende</button>
-          </div>
+        <div class="sidebar-menu">
+          <ul>
+            <li>
+              <a href="/projects">
+                <i class="icon-ui-elements"></i>
+                <span>Projecten</span>
+              </a>
+            </li>
+            <% if (user.role_id === 3) { %>
+            <li>
+              <a href="/users">
+                <i class="icon-form-elements"></i>
+                <span>Gebruikers</span>
+              </a>
+            </li>
+            <% } %>
+            <li>
+              <a href="/reports/hours">
+                <i class="icon-tables"></i>
+                <span>Rapporten</span>
+              </a>
+            </li>
+            <li>
+              <a href="/invoices" class="active">
+                <i class="icon-icons"></i>
+                <span>Facturen</span>
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
-    </div>
-          <div class="pagination">
-            <button id="prev-page" onclick="changePage(-1)">Vorige</button>
-            <span id="page-info"></span>
-            <button id="next-page" onclick="changePage(1)">Volgende</button>
+      <div class="container">
+        <div class="top-container">
+          <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="search" name="search" placeholder="Zoeken naar facturen..." />
           </div>
+          <button class="add-user" onclick="toggleForm()">
+            <i class="fas fa-plus"></i> Factuur Toevoegen
+          </button>
         </div>
-      </div>
-    </div>
-
-    <!-- Pop-up formulier -->
-    <div id="popup-form" class="popup-form">
-      <div class="form-content">
-        <% if (user.role_id === 3) { %>
-        <h2>Nieuwe Factuur Toevoegen</h2>
-        <% if (typeof error !== 'undefined') { %>
-        <p style="color: red"><%= error %></p>
-        <% } %>
-        <form action="/invoices/add" method="post">
-          <label for="project_id">Project:</label>
-          <select id="project_id" name="project_id">
-            <% projects.forEach(project => { %>
-            <option value="<%= project.id %>"><%= project.name %></option>
+        <div class="content-container">
+          <h1>Invoice Details</h1>
+          <% if (invoices && invoices.length > 0) { %>
+            <% invoices.forEach(invoice => { %>
+              <div class="invoice-details">
+                <div class="placeholder-details">
+                  <div class="placeholder-detail">
+                    <p><strong>Invoice ID:</strong> <%= invoice.id %></p>
+                  </div>
+                  <div class="placeholder-detail">
+                    <p><strong>User ID:</strong> <%= invoice.user_id %></p>
+                  </div>
+                  <div class="placeholder-detail">
+                    <p><strong>Project ID:</strong> <%= invoice.project_id %></p>
+                  </div>
+                  <div class="placeholder-detail">
+                    <p><strong>Hours Worked:</strong> <%= invoice.hours_worked %></p>
+                  </div>
+                  <div class="placeholder-detail">
+                    <p><strong>Date:</strong> <%= invoice.invoice_date %></p>
+                  </div>
+                </div>
+                <a href="/invoices/download/<%= invoice.invoice_id %>">Download PDF</a>
+              </div>
             <% }) %>
-          </select>
-          <label for="amount">Bedrag:</label>
-          <input type="number" id="amount" name="amount" required />
-          <button type="submit">Toevoegen</button>
-        </form>
-        <% } %>
-        <button onclick="toggleForm()">Sluiten</button>
+          <% } else { %>
+            <p>No invoices found.</p>
+          <% } %>
+        </div>
+        <div class="pagination">
+          <button id="prev-page" onclick="changePage(-1)">Vorige</button>
+          <span id="page-info"></span>
+          <button id="next-page" onclick="changePage(1)">Volgende</button>
+        </div>
       </div>
     </div>
+  </div>
 
-    <script>
-      function toggleForm() {
-        var popup = document.getElementById("popup-form");
-        popup.classList.toggle("show");
-      }
-    </script>
-  </body>
+  <!-- Pop-up formulier -->
+  <div id="popup-form" class="popup-form">
+    <div class="form-content">
+      <% if (user.role_id === 3) { %>
+      <h2>Nieuwe Factuur Toevoegen</h2>
+      <% if (typeof error !== 'undefined') { %>
+      <p style="color: red"><%= error %></p>
+      <% } %>
+      <form action="/invoices/add" method="post">
+        <label for="project_id">Project:</label>
+        <select id="project_id" name="project_id">
+          <% projects.forEach(project => { %>
+          <option value="<%= project.id %>"><%= project.name %></option>
+          <% }) %>
+        </select>
+        <label for="amount">Bedrag:</label>
+        <input type="number" id="amount" name="amount" required />
+        <button type="submit">Toevoegen</button>
+      </form>
+      <% } %>
+      <button onclick="toggleForm()">Sluiten</button>
+    </div>
+  </div>
+
+  <script>
+    function toggleForm() {
+      var popup = document.getElementById("popup-form");
+      popup.classList.toggle("show");
+    }
+  </script>
+</body>
 </html>
