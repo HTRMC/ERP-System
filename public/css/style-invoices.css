@@ -219,7 +219,7 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.add-user {
+.add-invoice {
   padding: 10px 20px;
   background-color: white;
   color: #888;
@@ -228,7 +228,6 @@ body {
   cursor: pointer;
   transition: background-color 0.3s;
   margin-right: 5%;
-  width: 7%;
 }
 
 .add-user:hover {
@@ -277,17 +276,37 @@ body {
 .content-container {
   width: 96%;
   padding: 20px;
-  height: 50%;
+  height: 70%;
   position: relative; /* Added */
 }
 
 /* Placeholder Container Styles */
-.invoice-placeholder {
-  background-color: #f7f7f7;
-  border-radius: 5px;
+.invoice-details {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 20px;
   margin-bottom: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.invoice-details:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.invoice-details a {
+  color: #12345d;
+  text-decoration: none;
+  background-color: #f4f5f7;
+  padding: 8px 16px;
+  border-radius: 4px;
+  margin-left: 50%;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.invoice-details a:hover {
+  background-color: var(--gilde-blue);
+  color: #fff;
 }
 
 .placeholder-details {
@@ -316,13 +335,24 @@ body {
 }
 
 .pagination button {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 5px;
+  padding: 10px 20px;
+  background-color: white;
+  color: #888;
+  border: 1px solid #ccc;
+  border-radius: 10px;
   cursor: pointer;
-  margin: 0 5px;
+  transition: background-color 0.3s;
+  margin: 0 10px;
+}
+
+.pagination button:hover {
+  background-color: lightgrey;
+}
+
+.pagination span {
+  margin: 0 10px;
+  font-size: 18px;
+  color: var(--gilde-blue);
 }
 
 /* Pop-up form styles */

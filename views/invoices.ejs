@@ -1,138 +1,247 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Invoices</title>
-  <link rel="stylesheet" href="/css/style-invoices.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-</head>
-<body>
-  <div class="main-container">
-    <div class="real-main-container">
-      <div class="sidebar-container">
-        <div class="menu-container">
-          <div class="top-menu-container">
-            <div class="menu-icon">
-              <img src="/images/hamburger.png" alt="menu-knop" draggable="false" />
-            </div>
-            <div class="logo">
-              <img src="/images/logo.png" alt="Logo" draggable="false" />
-            </div>
-          </div>
-          <div class="bottom-menu-container">
-            <div class="dashboard-container">
-              <a href="/dashboard" class="dashboard">
-                <i class="icon-dashboard"></i>
-                <span>Dashboard</span>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="sidebar-menu">
-          <ul>
-            <li>
-              <a href="/projects">
-                <i class="icon-ui-elements"></i>
-                <span>Projecten</span>
-              </a>
-            </li>
-            <% if (user.role_id === 3) { %>
-            <li>
-              <a href="/users">
-                <i class="icon-form-elements"></i>
-                <span>Gebruikers</span>
-              </a>
-            </li>
-            <% } %>
-            <li>
-              <a href="/reports/hours">
-                <i class="icon-tables"></i>
-                <span>Rapporten</span>
-              </a>
-            </li>
-            <li>
-              <a href="/invoices" class="active">
-                <i class="icon-icons"></i>
-                <span>Facturen</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="container">
-        <div class="top-container">
-          <div class="search-bar">
-            <i class="fas fa-search"></i>
-            <input type="search" name="search" placeholder="Zoeken naar facturen..." />
-          </div>
-          <button class="add-user" onclick="toggleForm()">
-            <i class="fas fa-plus"></i> Factuur Toevoegen
-          </button>
-        </div>
-        <div class="content-container">
-          <h1>Invoice Details</h1>
-          <% if (invoices && invoices.length > 0) { %>
-            <% invoices.forEach(invoice => { %>
-              <div class="invoice-details">
-                <div class="placeholder-details">
-                  <div class="placeholder-detail">
-                    <p><strong>Invoice ID:</strong> <%= invoice.id %></p>
-                  </div>
-                  <div class="placeholder-detail">
-                    <p><strong>Username:</strong> <%= invoice.user_name %></p>
-                  </div>
-                  <div class="placeholder-detail">
-                    <p><strong>Project Name:</strong> <%= invoice.project_name %></p>
-                  </div>
-                  <div class="placeholder-detail">
-                    <p><strong>Hours Worked:</strong> <%= invoice.hours_worked %></p>
-                  </div>
-                  <div class="placeholder-detail">
-                    <p><strong>Date:</strong> <%= invoice.invoice_date %></p>
-                  </div>
-                </div>
-                <a href="/invoices/download/<%= invoice.invoice_id %>">Download PDF</a>
+  <head>
+    <title>Invoices</title>
+    <link rel="stylesheet" href="/css/style-invoices.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="real-main-container">
+        <div class="sidebar-container">
+          <div class="menu-container">
+            <div class="top-menu-container">
+              <div class="menu-icon">
+                <img
+                  src="/images/hamburger.png"
+                  alt="menu-knop"
+                  draggable="false"
+                />
               </div>
-            <% }) %>
-          <% } else { %>
-            <p>No invoices found.</p>
-          <% } %>
+              <div class="logo">
+                <img src="/images/logo.png" alt="Logo" draggable="false" />
+              </div>
+            </div>
+            <div class="bottom-menu-container">
+              <div class="dashboard-container">
+                <a href="/dashboard" class="dashboard">
+                  <i class="icon-dashboard"></i>
+                  <span>Dashboard</span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="sidebar-menu">
+            <ul>
+              <li>
+                <a href="/projects">
+                  <i class="icon-ui-elements"></i>
+                  <span>Projecten</span>
+                </a>
+              </li>
+              <% if (user.role_id === 3) { %>
+              <li>
+                <a href="/users">
+                  <i class="icon-form-elements"></i>
+                  <span>Gebruikers</span>
+                </a>
+              </li>
+              <% } %>
+              <li>
+                <a href="/reports/hours">
+                  <i class="icon-tables"></i>
+                  <span>Rapporten</span>
+                </a>
+              </li>
+              <li>
+                <a href="/invoices" class="active">
+                  <i class="icon-icons"></i>
+                  <span>Facturen</span>
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div class="pagination">
-          <button id="prev-page" onclick="changePage(-1)">Vorige</button>
-          <span id="page-info"></span>
-          <button id="next-page" onclick="changePage(1)">Volgende</button>
+        <div class="container">
+          <div class="top-container">
+            <div class="search-bar">
+              <i class="fas fa-search"></i>
+              <input
+                type="search"
+                name="search"
+                placeholder="Zoeken naar facturen..."
+              />
+            </div>
+            <button class="add-invoice" onclick="toggleForm()">
+              <i class="fas fa-plus"></i> Factuur Toevoegen
+            </button>
+          </div>
+          <div class="content-container">
+            <% if (invoices && invoices.length > 0) { %> <%
+            invoices.forEach(invoice => { %>
+            <div class="invoice-details">
+              <div class="placeholder-details">
+                <div class="placeholder-detail">
+                  <p><strong>Invoice ID:</strong> <%= invoice.id %></p>
+                </div>
+                <div class="placeholder-detail">
+                  <p><strong>Username:</strong> <%= invoice.user_name %></p>
+                </div>
+                <div class="placeholder-detail">
+                  <p>
+                    <strong>Project Name:</strong> <%= invoice.project_name %>
+                  </p>
+                </div>
+                <div class="placeholder-detail">
+                  <p>
+                    <strong>Hours Worked:</strong> <%= invoice.hours_worked %>
+                  </p>
+                </div>
+                <div class="placeholder-detail">
+                  <p><strong>Date:</strong> <%= invoice.invoice_date %></p>
+                </div>
+              </div>
+              <a href="/invoices/download/<%= invoice.invoice_id %>"
+                >Download PDF</a
+              >
+            </div>
+            <% }) %> <% } else { %>
+            <p>No invoices found.</p>
+            <% } %>
+          </div>
+          <div class="pagination">
+            <button id="prev-page" onclick="changePage(-1)">Vorige</button>
+            <span id="page-info"></span>
+            <button id="next-page" onclick="changePage(1)">Volgende</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Pop-up formulier -->
-  <div id="popup-form" class="popup-form">
-    <div class="form-content">
-      <span class="close-icon" onclick="toggleForm()">&times;</span>
-      <% if (user.role_id === 3) { %>
-      <h2>Nieuwe Factuur Toevoegen</h2>
-      <% if (typeof error !== 'undefined') { %>
-      <p style="color: red"><%= error %></p>
-      <% } %>
-      <form action="/invoices/add" method="post">
-        <label for="project_id">Project:</label>
-        <select id="project_id" name="project_id">
-          <% projects.forEach(project => { %>
-          <option value="<%= project.id %>"><%= project.name %></option>
-          <% }) %>
-        </select>
-        <button type="submit">Toevoegen</button>
-      </form>
-      <% } %>
+    <!-- Pop-up formulier -->
+    <div id="popup-form" class="popup-form">
+      <div class="form-content">
+        <span class="close-icon" onclick="toggleForm()">&times;</span>
+        <% if (user.role_id === 3) { %>
+        <h2>Nieuwe Factuur Toevoegen</h2>
+        <% if (typeof error !== 'undefined') { %>
+        <p style="color: red"><%= error %></p>
+        <% } %>
+        <form action="/invoices/add" method="post">
+          <label for="project_id">Project:</label>
+          <select id="project_id" name="project_id">
+            <% projects.forEach(project => { %>
+            <option value="<%= project.id %>"><%= project.name %></option>
+            <% }) %>
+          </select>
+          <button type="submit">Toevoegen</button>
+        </form>
+        <% } %>
+      </div>
     </div>
-  </div>
 
-  <script>
-    function toggleForm() {
-      var popup = document.getElementById("popup-form");
-      popup.classList.toggle("show");
-    }
-  </script>
-</body>
+    <script>
+      function toggleForm() {
+        var popup = document.getElementById("popup-form");
+        popup.classList.toggle("show");
+      }
+
+      function toggleDetails(element) {
+        const details = element.querySelector(".additional-details");
+        const isVisible = getComputedStyle(details).display === "block";
+
+        document
+          .querySelectorAll(".additional-details")
+          .forEach((detail) => (detail.style.display = "none"));
+
+        details.style.display = isVisible ? "none" : "block";
+      }
+
+      function sortUsers(criteria) {
+        const container = document.querySelector(".content-container");
+        const users = Array.from(
+          container.getElementsByClassName("invoice-details")
+        );
+
+        users.sort((a, b) => {
+          const aValue = a.querySelector(
+            `.placeholder-detail .invoice-${criteria}`
+          ).innerText;
+          const bValue = b.querySelector(
+            `.placeholder-detail .invoice-${criteria}`
+          ).innerText;
+          return aValue.localeCompare(bValue);
+        });
+
+        container.innerHTML = "";
+        users.forEach((user) => container.appendChild(user));
+      }
+
+      const invoicesPerPage = 3; // Number of invoices to display per page
+      let currentPage = 1;
+
+      function displayInvoices(page) {
+        const invoiceContainers = document.querySelectorAll(".invoice-details");
+        const totalInvoices = invoiceContainers.length;
+        const totalPages = Math.ceil(totalInvoices / invoicesPerPage);
+
+        // Hide all invoice containers
+        invoiceContainers.forEach(
+          (invoice) => (invoice.style.display = "none")
+        );
+
+        // Display only the invoices for the current page
+        const start = (page - 1) * invoicesPerPage;
+        const end = start + invoicesPerPage;
+        for (let i = start; i < end && i < totalInvoices; i++) {
+          invoiceContainers[i].style.display = "block";
+        }
+
+        // Update page info and buttons
+        document.getElementById(
+          "page-info"
+        ).textContent = `Page ${page} of ${totalPages}`;
+        document.getElementById("prev-page").disabled = page === 1;
+        document.getElementById("next-page").disabled = page === totalPages;
+      }
+
+      function changePage(delta) {
+        currentPage += delta;
+        displayInvoices(currentPage);
+      }
+
+      // Close the form when clicking outside of it or pressing "Esc" key
+      window.addEventListener("click", function (event) {
+        const forms = document.querySelectorAll(".popup-form");
+        forms.forEach((form) => {
+          if (
+            form.classList.contains("show") &&
+            !form.contains(event.target) &&
+            event.target !== document.querySelector(".add-invoice")
+          ) {
+            form.classList.remove("show");
+          }
+        });
+      });
+
+      window.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+          const forms = document.querySelectorAll(".popup-form");
+          forms.forEach((form) => {
+            if (form.classList.contains("show")) {
+              form.classList.remove("show");
+            }
+          });
+        }
+      });
+
+      // Initialize pagination
+      document.addEventListener("DOMContentLoaded", () => {
+        displayInvoices(currentPage);
+      });
+    </script>
+  </body>
 </html>
