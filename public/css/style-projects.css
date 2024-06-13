@@ -142,7 +142,7 @@ body {
   display: flex;
   flex-direction: column;
   width: 85%;
-  height: 96%;
+  height: 95%;
   background-color: var(--main-container);
   padding: 20px;
 }

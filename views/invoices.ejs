@@ -69,15 +69,48 @@
           <div class="top-container">
             <div class="search-bar">
               <i class="fas fa-search"></i>
-              <input type="search" name="search" placeholder="Zoeken" />
+              <input
+                type="search"
+                name="search"
+                placeholder="Zoeken naar facturen..."
+              />
             </div>
             <button class="add-user" onclick="toggleForm()">
               <i class="fas fa-plus"></i> Factuur Toevoegen
             </button>
           </div>
-          <!-- Invoices content will go here -->
-
-          <!-- End of Invoices content -->
+          <div class="content-container">
+            <!-- Invoice Details -->
+            <h1>Invoice Details</h1>
+            <div class="placeholder-details">
+              <div class="placeholder-detail">
+                <p><strong>Invoice ID:</strong> <%= invoice.id || 'Loading...' %></p>
+              </div>
+              <div class="placeholder-detail">
+                <p><strong>User ID:</strong> <%= invoice.user_id || 'Loading...' %></p>
+              </div>
+              <div class="placeholder-detail">
+                <p><strong>Project ID:</strong> <%= invoice.project_id || 'Loading...' %></p>
+              </div>
+              <div class="placeholder-detail">
+                <p><strong>Hours Worked:</strong> <%= invoice.hours_worked || 'Loading...' %></p>
+              </div>
+              <div class="placeholder-detail">
+                <p><strong>Date:</strong> <%= invoice.invoice_date || 'Loading...' %></p>
+              </div>
+              <!-- Add more details as needed -->
+            </div>
+            <a href="/invoices/download/<%= invoice.invoice_id %>">Download PDF</a>
+            <a href="/invoices">Back to Invoices</a>
+          </div>
+          <div class="pagination">
+            <button id="prev-page" onclick="changePage(-1)">Vorige</button>
+            <span id="page-info"></span>
+            <button id="next-page" onclick="changePage(1)">Volgende</button>
+          </div>
+        </div>
+      </div>
+    </div>
           <div class="pagination">
             <button id="prev-page" onclick="changePage(-1)">Vorige</button>
             <span id="page-info"></span>
@@ -95,13 +128,15 @@
         <% if (typeof error !== 'undefined') { %>
         <p style="color: red"><%= error %></p>
         <% } %>
-        <form action="/:invoices_id" method="post">
+        <form action="/invoices/add" method="post">
           <label for="project_id">Project:</label>
           <select id="project_id" name="project_id">
             <% projects.forEach(project => { %>
             <option value="<%= project.id %>"><%= project.name %></option>
             <% }) %>
           </select>
+          <label for="amount">Bedrag:</label>
+          <input type="number" id="amount" name="amount" required />
           <button type="submit">Toevoegen</button>
         </form>
         <% } %>
