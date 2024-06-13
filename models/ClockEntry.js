@@ -2,6 +2,11 @@
 const db = require('../config/db');
 
 class ClockEntry {
+  static async create(clockEntry) {
+    const { user_id, project_id, clock_in_time } = clockEntry;
+    await db.query('INSERT INTO clock_entries (user_id, project_id, clock_in_time) VALUES (?, ?, ?)', [user_id, project_id, clock_in_time]);
+  }
+
   static async clockIn(userId, projectId) {
     await db.query('INSERT INTO clock_entries (user_id, project_id, clock_in_time) VALUES (?, ?, NOW())', [userId, projectId]);
   }
@@ -80,9 +85,13 @@ class ClockEntry {
     return rows[0].hours_worked ? parseFloat(rows[0].hours_worked) : 0;
   }  
   
-  static async getLastClockEntry(userId) {
-    const [rows] = await db.query('SELECT * FROM clock_entries WHERE user_id = ? ORDER BY clock_in_time DESC LIMIT 1', [userId]);
+  static async getLastClockEntry(user_id) {
+    const [rows] = await db.query('SELECT * FROM clock_entries WHERE user_id = ? ORDER BY clock_in_time DESC LIMIT 1', [user_id]);
     return rows[0];
+  }
+
+  static async updateClockOutTime(id, clock_out_time) {
+    await db.query('UPDATE clock_entries SET clock_out_time = ? WHERE id = ?', [clock_out_time, id]);
   }
 }
 

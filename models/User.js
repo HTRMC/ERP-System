@@ -1,5 +1,4 @@
 // models/User.js
-
 const db = require('../config/db');
 
 class User {
@@ -39,6 +38,10 @@ class User {
 
   static async setResetToken(email, token, expires) {
     await db.query('UPDATE users SET resetPasswordToken = ?, resetPasswordExpires = ? WHERE email = ?', [token, expires, email]);
+  }
+
+  static async updateStatus(id, status) {
+    await db.query('UPDATE users SET status = ? WHERE id = ?', [status, id]);
   }
 }
 

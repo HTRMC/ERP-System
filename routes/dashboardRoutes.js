@@ -1,6 +1,8 @@
+// routes/dashboardRoutes.js
 const express = require('express');
 const { ensureAuthenticated } = require('../middleware/auth');
 const Project = require('../models/Project');
+const User = require('../models/User');
 const ClockEntry = require('../models/ClockEntry');
 
 const router = express.Router();
@@ -8,6 +10,7 @@ const router = express.Router();
 router.get('/', ensureAuthenticated, async (req, res) => {
   try {
     const projects = await Project.findAll();
+    const users = await User.findAll(); // Fetch all users
     const companiesWithProjectCount = await Project.getCompaniesWithProjectCount();
     const lastClockEntry = await ClockEntry.getLastClockEntry(req.user.id);
     const isClockedIn = lastClockEntry && !lastClockEntry.clock_out_time;
@@ -16,6 +19,7 @@ router.get('/', ensureAuthenticated, async (req, res) => {
 
     res.render('dashboard', { 
       user: req.user, 
+      users, 
       projects, 
       isClockedIn, 
       lastClockEntry,
