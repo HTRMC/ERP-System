@@ -78,10 +78,10 @@
                     <p><strong>Invoice ID:</strong> <%= invoice.id %></p>
                   </div>
                   <div class="placeholder-detail">
-                    <p><strong>User ID:</strong> <%= invoice.user_id %></p>
+                    <p><strong>Username:</strong> <%= invoice.user_name %></p>
                   </div>
                   <div class="placeholder-detail">
-                    <p><strong>Project ID:</strong> <%= invoice.project_id %></p>
+                    <p><strong>Project Name:</strong> <%= invoice.project_name %></p>
                   </div>
                   <div class="placeholder-detail">
                     <p><strong>Hours Worked:</strong> <%= invoice.hours_worked %></p>
@@ -109,6 +109,7 @@
   <!-- Pop-up formulier -->
   <div id="popup-form" class="popup-form">
     <div class="form-content">
+      <span class="close-icon" onclick="toggleForm()">&times;</span>
       <% if (user.role_id === 3) { %>
       <h2>Nieuwe Factuur Toevoegen</h2>
       <% if (typeof error !== 'undefined') { %>
@@ -121,12 +122,9 @@
           <option value="<%= project.id %>"><%= project.name %></option>
           <% }) %>
         </select>
-        <label for="amount">Bedrag:</label>
-        <input type="number" id="amount" name="amount" required />
         <button type="submit">Toevoegen</button>
       </form>
       <% } %>
-      <button onclick="toggleForm()">Sluiten</button>
     </div>
   </div>
 

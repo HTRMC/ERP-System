@@ -10,11 +10,24 @@ exports.getInvoices = async (req, res) => {
   try {
     const invoices = await Invoice.findAll();
     const projects = await Project.findAll();
+
+    // Format invoice dates and set a default date if null
+    invoices.forEach(invoice => {
+      if (!invoice.invoice_date) {
+        invoice.invoice_date = 'No date available';
+      } else {
+        invoice.invoice_date = new Intl.DateTimeFormat('en-GB', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit'
+        }).format(new Date(invoice.invoice_date));
+      }
+    });
+
     res.render("invoices", {
       invoices,
       projects,
-      user: req.user,
-      invoice: null,
+      user: req.user
     });
   } catch (err) {
     console.error("Error fetching invoices:", err);
@@ -36,12 +49,18 @@ exports.getInvoiceById = async (req, res) => {
   }
 };
 
+const { format } = require('date-fns');
+
 exports.createInvoice = async (req, res) => {
   const { project_id } = req.body;
   const user_id = req.user.id;
 
   try {
     const project = await Project.findById(project_id);
+    if (!project) {
+      return res.status(404).send("Project not found");
+    }
+
     const clockEntries = await ClockEntry.findByProjectId(project_id);
     const userHours = {};
 
@@ -177,15 +196,17 @@ exports.createInvoice = async (req, res) => {
       hours_worked: totalHours,
       pdf_path: pdfPath,
       invoice_id: invoiceId,
+      invoice_date: now.toISOString().split('T')[0] // Set the invoice date to current date
     };
     await Invoice.create(invoiceData);
 
-    res.redirect(`/invoices/${invoiceId}`);
+    res.redirect(`/invoices`);
   } catch (err) {
     console.error("Error creating invoice:", err);
     res.status(500).send("Server error");
   }
 };
+
 
 exports.downloadInvoice = async (req, res) => {
   const { invoice_id } = req.params;
