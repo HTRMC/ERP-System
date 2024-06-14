@@ -196,7 +196,7 @@ exports.createInvoice = async (req, res) => {
       hours_worked: totalHours,
       pdf_path: pdfPath,
       invoice_id: invoiceId,
-      invoice_date: now.toISOString().split('T')[0] // Set the invoice date to current date
+      invoice_date: now.toISOString().split('T')[0]
     };
     await Invoice.create(invoiceData);
 

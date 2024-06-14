@@ -43,6 +43,11 @@ class User {
   static async updateStatus(id, status) {
     await db.query('UPDATE users SET status = ? WHERE id = ?', [status, id]);
   }
+
+  static async search(query) {
+    const [rows] = await db.query('SELECT * FROM users WHERE name LIKE ? OR email LIKE ?', [`%${query}%`, `%${query}%`]);
+    return rows;
+  }
 }
 
 module.exports = User;

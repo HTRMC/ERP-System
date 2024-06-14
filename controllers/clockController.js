@@ -33,7 +33,7 @@ exports.clockOut = async (req, res) => {
 
     res.redirect('/dashboard');
   } catch (err) {
-    console.error('Error clocking out:', err.message); // Enhanced error logging
+    console.error('Error clocking out:', err.message);
     res.status(500).send('Server error');
   }
 };

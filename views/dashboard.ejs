@@ -76,7 +76,8 @@
               <div class="search-bar-container">
                 <div class="search-bar">
                   <i class="fas fa-search"></i>
-                  <input type="search" name="search" placeholder="Zoeken" />
+                  <input type="search" name="search" id="searchInput" placeholder="Zoeken" oninput="performSearch()" />
+                  <div class="search-results" id="searchResults"></div>
                 </div>
               </div>
               <div class="account-button">
@@ -277,5 +278,64 @@
         }
       });
     </script>
+    <script>
+      async function performSearch() {
+        const query = document.getElementById('searchInput').value;
+    
+        if (query.length < 3) { // Minimum 3 characters to start searching
+          document.getElementById('searchResults').innerHTML = '';
+          return;
+        }
+    
+        try {
+          const response = await fetch(`/search?q=${query}`);
+          const results = await response.json();
+          displayResults(results);
+        } catch (err) {
+          console.error('Error during search:', err);
+        }
+      }
+    
+      function displayResults(results) {
+        const resultsContainer = document.getElementById('searchResults');
+        resultsContainer.innerHTML = '';
+    
+        if (results.length === 0) {
+          resultsContainer.innerHTML = '<p>No results found</p>';
+          return;
+        }
+    
+        results.forEach(result => {
+          const resultElement = document.createElement('div');
+          resultElement.className = 'search-result';
+          resultElement.innerHTML = `
+            <a href="/${result.type.toLowerCase()}s/${result.id}">
+              <strong>${result.type}</strong>: ${result.name || result.project}
+            </a>
+          `;
+          resultsContainer.appendChild(resultElement);
+        });
+      }
+    </script>
+    <style>
+      .search-results {
+        position: absolute;
+        background: white;
+        border: 1px solid #ccc;
+        width: 100%;
+        z-index: 1000;
+      }
+      .search-result {
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+      }
+      .search-result a {
+        text-decoration: none;
+        color: black;
+      }
+      .search-result a:hover {
+        background-color: #f0f0f0;
+      }
+    </style>
   </body>
 </html>
