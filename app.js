@@ -12,6 +12,7 @@ const clockRoutes = require('./routes/clockRoutes');
 const reportRoutes = require('./routes/reportRoutes');
 const invoiceRoutes = require('./routes/invoiceRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
+const searchRoutes = require('./routes/searchRoutes');
 
 dotenv.config();
 
@@ -41,6 +42,7 @@ app.use('/clock', clockRoutes);
 app.use('/reports', reportRoutes);
 app.use('/invoices', invoiceRoutes);
 app.use('/dashboard', dashboardRoutes);
+app.use('/search', searchRoutes);
 
 app.get('/', (req, res) => {
   res.redirect('/auth/login');

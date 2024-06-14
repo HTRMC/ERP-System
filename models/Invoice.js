@@ -30,6 +30,17 @@ class Invoice {
     );
     return result[0].insertId;
   }
+
+  static async search(query) {
+    const [rows] = await db.query(`
+      SELECT invoices.*, projects.name AS project_name 
+      FROM invoices 
+      JOIN projects ON invoices.project_id = projects.id 
+      WHERE invoices.invoice_id LIKE ? OR projects.name LIKE ?`, 
+      [`%${query}%`, `%${query}%`]
+    );
+    return rows;
+  }
 }
 
 module.exports = Invoice;

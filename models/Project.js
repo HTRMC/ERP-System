@@ -28,6 +28,11 @@ class Project {
     const [rows] = await db.query(query);
     return rows;
   }
+
+  static async search(query) {
+    const [rows] = await db.query('SELECT * FROM projects WHERE name LIKE ?', [`%${query}%`]);
+    return rows;
+  }
 }
 
 module.exports = Project;
