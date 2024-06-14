@@ -80,7 +80,7 @@
                 </div>
               </div>
               <div class="account-button">
-                <div class="circle"></div>
+                <div class="circle" id="accountCircle"></div>
                 <div class="pop-up-menu" id="popUpMenu">
                   <button class="logout-button" onclick="logout()">Log Out</button>
                 </div>
@@ -183,10 +183,10 @@
         const hoursByProject = <%- JSON.stringify(hoursByProject || []) %>;
         const lastClockInTime = <%- JSON.stringify(lastClockEntry ? lastClockEntry.clock_in_time : null) %>;
         const isClockedIn = <%= isClockedIn %>;
-
+    
         const labels = hoursByProject.map(entry => entry.project_name);
         const data = hoursByProject.map(entry => entry.hours_worked);
-
+    
         const projects = {
           labels: labels,
           datasets: [
@@ -213,7 +213,7 @@
             },
           ],
         };
-
+    
         const donutChartCanvas = document.getElementById("donutChart");
         const donutChart = new Chart(donutChartCanvas, {
           type: "doughnut",
@@ -239,33 +239,42 @@
             }
           },
         });
-
+    
         function updateWorkingTime() {
           if (isClockedIn && lastClockInTime) {
             const startTime = new Date(lastClockInTime).getTime();
             const currentTime = new Date().getTime();
             const diff = currentTime - startTime;
-
+    
             const hours = Math.floor(diff / (1000 * 60 * 60));
             const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
+    
             document.getElementById("werktijd").textContent = 
               String(hours).padStart(2, "0") + ":" +
               String(minutes).padStart(2, "0") + ":" +
               String(seconds).padStart(2, "0");
           }
         }
-
+    
         setInterval(updateWorkingTime, 1000);
-
-        const accountButton = document.querySelector('.account-button');
-        const popUpMenu = document.querySelector('.pop-up-menu');
-
-        accountButton.addEventListener('click', function() {
-          popUpMenu.classList.toggle('visible');
+    
+        const accountCircle = document.getElementById('accountCircle');
+        const popUpMenu = document.getElementById('popUpMenu');
+    
+        accountCircle.addEventListener('click', function(event) {
+          event.stopPropagation(); // Prevent click event from propagating to document
+    
+          popUpMenu.classList.toggle('show'); // Toggle visibility of pop-up menu
         });
-
+    
+        // Close the pop-up menu when clicking outside of it
+        document.addEventListener('click', function(event) {
+          if (!popUpMenu.contains(event.target) && !accountCircle.contains(event.target)) {
+            popUpMenu.classList.remove('show');
+          }
+        });
+    
         window.logout = function() {
           fetch('/logout', { method: 'POST' })
             .then(response => {
@@ -277,5 +286,6 @@
         }
       });
     </script>
+    
   </body>
 </html>
