@@ -79,6 +79,9 @@
               </div>
               <div class="account-button">
                 <div class="circle"></div>
+                <div class="pop-up-menu" id="popUpMenu">
+                  <button class="logout-button" onclick="logout()">Log Out</button>
+                </div>
               </div>
             </div>
           </div>
@@ -225,26 +228,50 @@
                       label += ': ';
                     }
                     if (context.parsed !== null) {
-                      label += context.parsed.toFixed(1) + ' hours';
+                      label += context.parsed.toFixed(2) + ' uur';
                     }
                     return label;
                   }
                 }
               }
             }
-          }
+          },
         });
 
-        if (isClockedIn && lastClockInTime) {
-          const clockInTime = new Date(lastClockInTime);
-          setInterval(() => {
-            const now = new Date();
-            const diff = new Date(now - clockInTime);
-            const hours = String(diff.getUTCHours()).padStart(2, '0');
-            const minutes = String(diff.getUTCMinutes()).padStart(2, '0');
-            const seconds = String(diff.getUTCSeconds()).padStart(2, '0');
-            document.getElementById('werktijd').textContent = `${hours}:${minutes}:${seconds}`;
-          }, 1000);
+        function updateWorkingTime() {
+          if (isClockedIn && lastClockInTime) {
+            const startTime = new Date(lastClockInTime).getTime();
+            const currentTime = new Date().getTime();
+            const diff = currentTime - startTime;
+
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById("werktijd").textContent = 
+              String(hours).padStart(2, "0") + ":" +
+              String(minutes).padStart(2, "0") + ":" +
+              String(seconds).padStart(2, "0");
+          }
+        }
+
+        setInterval(updateWorkingTime, 1000);
+
+        const accountButton = document.querySelector('.account-button');
+        const popUpMenu = document.querySelector('.pop-up-menu');
+
+        accountButton.addEventListener('click', function() {
+          popUpMenu.classList.toggle('visible');
+        });
+
+        window.logout = function() {
+          fetch('/logout', { method: 'POST' })
+            .then(response => {
+              if (response.ok) {
+                window.location.href = '/login';
+              }
+            })
+            .catch(error => console.error('Error:', error));
         }
       });
     </script>
