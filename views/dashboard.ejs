@@ -45,12 +45,14 @@
                 </a>
               </li>
               <% } %>
-              <li>
-                <a href="/reports/hours">
-                  <i class="icon-tables"></i>
-                  <span>Rapporten</span>
-                </a>
-              </li>
+              <% if (user.role_id === 3 || user.role_id === 2) { %>
+                <li>
+                  <a href="/reports/hours" class="active">
+                    <i class="icon-tables"></i>
+                    <span>Rapporten</span>
+                  </a>
+                </li>
+                <% } %>
               <li>
                 <a href="/invoices">
                   <i class="icon-icons"></i>

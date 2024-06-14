@@ -6,9 +6,6 @@ exports.getHoursReport = async (req, res) => {
   const period = req.query.period || 'daily'; // Set default period to 'daily'
   const user_id = req.user.id;
 
-  //console.log(`Period: ${period}`); // Log the period for debugging
-  //console.log(`Query parameters: ${JSON.stringify(req.query)}`); // Log all query parameters for debugging
-
   try {
     const report = await ClockEntry.getHoursReport(user_id, period);
     // Format dates
@@ -28,4 +25,25 @@ exports.getHoursReport = async (req, res) => {
     console.error('Error fetching hours report:', err.message);
     res.status(500).send('Server error');
   }
+};
+
+exports.ensureAuthenticated = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/auth/login');
+};
+
+exports.ensureAdmin = (req, res, next) => {
+  if (req.isAuthenticated() && req.user.role_id === 3) { // 3 is the role ID for admin
+    return next();
+  }
+  res.redirect('/dashboard');
+};
+
+exports.ensureManagerOrAdmin = (req, res, next) => {
+  if (req.isAuthenticated() && (req.user.role_id === 3 || req.user.role_id === 2)) { // 2 is the role ID for manager, 3 for admin
+    return next();
+  }
+  res.redirect('/dashboard');
 };
