@@ -233,34 +233,34 @@
         </div>
         <div class="content-container">
           <% users.forEach(user => { %>
-          <div class="user-details" onclick="toggleDetails(this)">
-            <div class="user-info">
-              <div class="user-picture">
-                <img
-                  src="https://via.placeholder.com/50"
-                  alt="Gebruikersfoto"
-                />
+            <div class="user-details" id="user-<%= user.id %>" onclick="toggleDetails(this)" 
+                 <% if (userIdToDisplay && user.id == userIdToDisplay) { %> 
+                 style="display:block" 
+                 <% } %>>
+              <div class="user-info">
+                <div class="user-picture">
+                  <img src="https://via.placeholder.com/50" alt="Gebruikersfoto" />
+                </div>
+                <div class="user-name"><%= user.name %></div>
+                <div class="user-email"><%= user.email %></div>
+                <div class="user-hours">
+                  <%= user.hours ? user.hours + ' uur' : '-' %>
+                </div>
+                <div class="user-status <%= user.status === 'clocked-in' ? 'clocked-in' : 'clocked-out' %>">
+                  <%= user.status === 'clocked-in' ? 'Ingeklokt' : 'Uitgeklokt' %>
+                </div>
               </div>
-              <div class="user-name"><%= user.name %></div>
-              <div class="user-email"><%= user.email %></div>
-              <div class="user-hours">
-                <%= user.hours ? user.hours + ' uur' : '-' %>
-              </div>
-              <div
-                class="user-status <%= user.status === 'clocked-in' ? 'clocked-in' : 'clocked-out' %>"
-              >
-                <%= user.status === 'clocked-in' ? 'Ingeklokt' : 'Uitgeklokt'
-                %>
+              <div class="additional-details" 
+                   <% if (userIdToDisplay && user.id == userIdToDisplay) { %> 
+                   style="display:block" 
+                   <% } %>>
+                <div class="detail-container">
+                  <div class="detail">Rol: <%= user.role %></div>
+                  <div class="detail">Detail 2</div>
+                  <div class="detail">Detail 3</div>
+                </div>
               </div>
             </div>
-            <div class="additional-details">
-              <div class="detail-container">
-                <div class="detail">Rol: <%= user.role %></div>
-                <div class="detail">Detail 2</div>
-                <div class="detail">Detail 3</div>
-              </div>
-            </div>
-          </div>
           <% }) %>
         </div>
         <div class="pagination">

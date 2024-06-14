@@ -3,10 +3,10 @@ const bcrypt = require('bcryptjs');
 const Sequelize = require('sequelize');
 const User = require('../models/User');
 
-exports.getUsers = async (req, res) => {
+exports.getUsers = async (req, res, userId) => {
   try {
     const users = await User.findAll();
-    res.render('users', { users, user: req.user, error: null });
+    res.render('users', { users, user: req.user, error: null, userIdToDisplay: userId });
   } catch (err) {
     console.error('Error fetching users:', err);
     res.status(500).send('Server error');

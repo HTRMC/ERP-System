@@ -308,22 +308,36 @@
       function displayResults(results) {
         const resultsContainer = document.getElementById('searchResults');
         resultsContainer.innerHTML = '';
-    
+
         if (results.length === 0) {
           resultsContainer.innerHTML = '<p>No results found</p>';
           return;
         }
-    
+
         results.forEach(result => {
           const resultElement = document.createElement('div');
           resultElement.className = 'search-result';
           resultElement.innerHTML = `
-            <a href="/${result.type.toLowerCase()}s/${result.id}">
+            <div onclick="displayUserDetails(${result.id})">
               <strong>${result.type}</strong>: ${result.name || result.project}
-            </a>
+            </div>
           `;
           resultsContainer.appendChild(resultElement);
         });
+      }
+
+      function displayUserDetails(userId) {
+        const currentUrl = window.location.href;
+        if (!currentUrl.endsWith('/users')) {
+          window.location.href = `/users?userId=${userId}`;
+        } else {
+          const userElement = document.getElementById(`user-${userId}`);
+          if (userElement) {
+            userElement.scrollIntoView();
+            userElement.querySelector('.additional-details').style.display = 'block';
+          }
+        }
+        document.getElementById('searchResults').innerHTML = '';
       }
     </script>
     <style>
