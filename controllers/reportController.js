@@ -3,7 +3,7 @@ const ClockEntry = require('../models/ClockEntry');
 const moment = require('moment');
 
 exports.getHoursReport = async (req, res) => {
-  const period = req.query.period || 'daily'; // Set default period to 'daily'
+  const period = req.query.period || 'daily';
   const user_id = req.user.id;
 
   try {
@@ -11,7 +11,7 @@ exports.getHoursReport = async (req, res) => {
     // Format dates
     report.forEach(entry => {
       if (period === 'daily') {
-        entry.date = moment(entry.date).format('DD/MM/YYYY HH:mm:ss');
+        entry.date = moment(entry.date).format('DD/MM/YYYY');
       } else if (period === 'weekly') {
         entry.week = `Week ${entry.week}`;
       } else if (period === 'monthly') {
