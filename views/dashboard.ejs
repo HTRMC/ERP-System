@@ -259,7 +259,7 @@
     
         setInterval(updateWorkingTime, 1000);
     
-        const accountCircle = document.getElementById('accountCircle');
+        const accountCircle = document.querySelector('.circle');
         const popUpMenu = document.getElementById('popUpMenu');
     
         accountCircle.addEventListener('click', function(event) {
@@ -270,7 +270,7 @@
     
         // Close the pop-up menu when clicking outside of it
         document.addEventListener('click', function(event) {
-          if (!popUpMenu.contains(event.target) && !accountCircle.contains(event.target)) {
+          if (!popUpMenu.contains(event.target) && event.target !== accountCircle) {
             popUpMenu.classList.remove('show');
           }
         });
@@ -286,6 +286,8 @@
         }
       });
     </script>
+    
+    
     
   </body>
 </html>
