@@ -165,100 +165,80 @@ body {
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
   width: 87%;
   height: 100%;
-  background-color: var(--main-container);
+  background-color: #fff;
 }
 
 .top-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   width: 100%;
-  height: 16%;
-  border-bottom: 1px solid darkgrey;
+  height: 10%;
+  background-color: var(--main-container);
+  border-bottom: 1px solid #ccc;
+}
+
+.search-bar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  height: 35%;
 }
 
 .search-bar {
   display: flex;
-  align-items: center;
-  width: 20%;
-  height: 25%;
-  margin-right: 10%;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 0 15px;
-  background-color: #fff;
-  transition: box-shadow 0.3s, border-color 0.3s;
+  align-items: center; /* Align items to the center */
+
+  width: 25%;
+  height: 43%;
+  border: 1px solid #ccc; /* Light grey border */
+  border-radius: 20px; /* More rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  padding: 0 15px; /* Padding for content inside */
+  background-color: #fff; /* White background */
+  transition: box-shadow 0.3s, border-color 0.3s; /* Smooth transitions */
 }
 
 .search-bar i {
-  margin-right: 10px;
-  color: #888;
+  margin-right: 10px; /* Space between icon and input */
+  color: #888; /* Icon color */
 }
 
 .search-bar input {
-  border: none;
-  outline: none;
-  flex: 1;
+  border: none; /* Remove border from input */
+  outline: none; /* Remove outline from input */
+  flex: 1; /* Allow input to take available space */
 }
 
 .search-bar:focus-within {
-  border-color: var(--gilde-blue);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-color: var(--gilde-blue); /* Border color change on focus */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Deeper shadow on focus */
 }
-
-.dashboard-button {
-  padding: 10px 20px;
-  background-color: white;
-  color: #888;
-  border: 1px solid #ccc;
-  border-radius: 15px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  margin-left: 5%;
-  width: 7%;
-}
-
-.dashboard-button:hover {
-  background-color: lightgrey;
-}
-
 .sorting-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   width: 100%;
-  margin-top: 20px;
-  margin-bottom: 10px;
-}
-
-.sorting-name,
-.sorting-period,
-.sorting-hours {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 27%;
-  height: 100%;
+  height: 10%;
+  background-color: var(--main-container);
+  border-bottom: 1px solid #ccc;
 }
 
 .sort-button {
-  padding: 10px 20px;
-  background-color: white;
-  color: #888;
-  border: 1px solid #ccc;
-  border-radius: 10px;
+  background-color: transparent;
+  border: none;
+  color: var(--gilde-blue);
+  font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s;
-  margin: 0 10px;
+  display: flex;
+  align-items: center;
 }
 
-.sort-button:hover {
-  background-color: lightgrey;
+.sort-button i {
+  margin-left: 5px;
 }
 
 .content-container {
@@ -267,82 +247,33 @@ body {
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  height: 68%;
+
   overflow-y: auto;
+  position: relative;
+  z-index: 1; /* Ensure the content is above the pseudo-element */
 }
 
-table {
-  width: 100%;
+#reportsTable {
+  width: 90%;
   border-collapse: collapse;
+  margin-top: 20px;
 }
 
-th,
-td {
+#reportsTable th,
+#reportsTable td {
+  border: 1px solid #ccc;
   padding: 10px;
   text-align: left;
 }
 
-thead {
-  background-color: var(--gilde-blue);
-  color: white;
+#reportsTable th {
+  background-color: var(--main-container);
 }
 
-tbody tr:nth-child(even) {
-  background-color: #f2f2f2;
+#reportsTable tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
 }
 
-.popup-form {
-  display: none;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #ffffff;
-  padding: 40px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
-  max-width: 500px;
-  width: 90%;
-}
-
-.popup-form.show {
-  display: block;
-}
-
-.popup-form h2 {
-  margin-bottom: 20px;
-  font-size: 24px;
-  color: var(--gilde-blue);
-}
-
-.popup-form label {
-  display: block;
-  margin-bottom: 10px;
-  font-size: 16px;
-  color: var(--gilde-blue);
-}
-
-.popup-form input,
-.popup-form select {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-.popup-form button[type="submit"] {
-  background-color: var(--gilde-blue);
-  color: #ffffff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.popup-form button[type="submit"]:hover {
-  background-color: #195f99;
+#reportsTable tbody tr:hover {
+  background-color: #f1f1f1;
 }

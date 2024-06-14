@@ -288,6 +288,11 @@ body {
   cursor: pointer;
 }
 
+.user-details:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 .additional-details {
   display: none;
   justify-content: right;
