@@ -27,14 +27,23 @@ router.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
-router.get('/logout', (req, res) => {
+router.post('/logout', (req, res, next) => {
   req.logout((err) => {
     if (err) {
+      console.error('Error during logout:', err);
       return next(err);
     }
-    res.redirect('/auth/login');
+    req.session.destroy((err) => {
+      if (err) {
+        console.error('Error destroying session:', err);
+        return res.status(500).send('Server error');
+      }
+      res.clearCookie('connect.sid'); // Replace with your session cookie name if different
+      res.status(200).send('Logged out');
+    });
   });
 });
+
 
 // New routes for password reset
 router.get('/forgot-password', showForgotPasswordForm);

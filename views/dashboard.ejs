@@ -282,15 +282,19 @@
     }
   });
 
-  window.logout = function() {
-    fetch('/logout', { method: 'POST' })
-      .then(response => {
+  window.logout = async function() {
+      try {
+        const response = await fetch('/auth/logout', { method: 'POST' });
         if (response.ok) {
-          window.location.href = '/login';
+          window.location.href = '/auth/login';
+        } else {
+          console.error('Logout failed:', response.statusText);
         }
-      })
-      .catch(error => console.error('Error:', error));
+      } catch (error) {
+        console.error('Error:', error);
+      }
   }
+
       });
     </script>
     <script>
