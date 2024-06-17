@@ -210,8 +210,6 @@ body {
 
 .search-bar input::placeholder {
   color: #888;
-  font-style: italic;
-  font-weight: 300;
 }
 
 .search-bar:focus-within {

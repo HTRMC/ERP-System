@@ -49,15 +49,14 @@
                   <span>Gebruikers</span>
                 </a>
               </li>
+              <% } %> <% if (user.role_id === 3 || user.role_id === 2) { %>
+              <li>
+                <a href="/reports/hours">
+                  <i class="icon-tables"></i>
+                  <span>Rapporten</span>
+                </a>
+              </li>
               <% } %>
-              <% if (user.role_id === 3 || user.role_id === 2) { %>
-                <li>
-                  <a href="/reports/hours">
-                    <i class="icon-tables"></i>
-                    <span>Rapporten</span>
-                  </a>
-                </li>
-                <% } %>
               <li>
                 <a href="/invoices" class="active">
                   <i class="icon-icons"></i>
@@ -74,7 +73,7 @@
               <input
                 type="search"
                 name="search"
-                placeholder="Zoeken naar facturen..."
+                placeholder="Zoeken"
                 oninput="searchInvoices(this.value)"
               />
             </div>
@@ -83,8 +82,8 @@
             </button>
           </div>
           <div class="content-container" id="invoice-container">
-            <% if (invoices && invoices.length > 0) { %>
-            <% invoices.forEach(invoice => { %>
+            <% if (invoices && invoices.length > 0) { %> <%
+            invoices.forEach(invoice => { %>
             <div class="invoice-details">
               <div class="placeholder-details">
                 <div class="placeholder-detail">
@@ -94,19 +93,24 @@
                   <p><strong>Username:</strong> <%= invoice.user_name %></p>
                 </div>
                 <div class="placeholder-detail">
-                  <p><strong>Project Name:</strong> <%= invoice.project_name %></p>
+                  <p>
+                    <strong>Project Name:</strong> <%= invoice.project_name %>
+                  </p>
                 </div>
                 <div class="placeholder-detail">
-                  <p><strong>Hours Worked:</strong> <%= invoice.hours_worked %></p>
+                  <p>
+                    <strong>Hours Worked:</strong> <%= invoice.hours_worked %>
+                  </p>
                 </div>
                 <div class="placeholder-detail">
                   <p><strong>Date:</strong> <%= invoice.invoice_date %></p>
                 </div>
               </div>
-              <a href="/invoices/download/<%= invoice.invoice_id %>">Download PDF</a>
+              <a href="/invoices/download/<%= invoice.invoice_id %>"
+                >Download PDF</a
+              >
             </div>
-            <% }) %>
-            <% } else { %>
+            <% }) %> <% } else { %>
             <p>No invoices found.</p>
             <% } %>
           </div>
@@ -215,22 +219,24 @@
         const invoiceContainers = document.querySelectorAll(".invoice-details");
         invoiceContainers.forEach((invoice) => {
           const invoiceText = invoice.innerText.toLowerCase();
-          invoice.style.display = invoiceText.includes(query.toLowerCase()) ? "block" : "none";
+          invoice.style.display = invoiceText.includes(query.toLowerCase())
+            ? "block"
+            : "none";
         });
         updatePagination();
       }
 
       function updatePagination() {
-        const visibleInvoices = Array.from(document.querySelectorAll(".invoice-details")).filter(
-          (invoice) => invoice.style.display === "block"
-        );
+        const visibleInvoices = Array.from(
+          document.querySelectorAll(".invoice-details")
+        ).filter((invoice) => invoice.style.display === "block");
         const totalInvoices = visibleInvoices.length;
         const totalPages = Math.ceil(totalInvoices / invoicesPerPage);
 
         // Hide all invoice containers
-        document.querySelectorAll(".invoice-details").forEach(
-          (invoice) => (invoice.style.display = "none")
-        );
+        document
+          .querySelectorAll(".invoice-details")
+          .forEach((invoice) => (invoice.style.display = "none"));
 
         // Display only the invoices for the current page
         const start = (currentPage - 1) * invoicesPerPage;
@@ -240,9 +246,12 @@
         }
 
         // Update page info and buttons
-        document.getElementById("page-info").textContent = `Page ${currentPage} of ${totalPages}`;
+        document.getElementById(
+          "page-info"
+        ).textContent = `Page ${currentPage} of ${totalPages}`;
         document.getElementById("prev-page").disabled = currentPage === 1;
-        document.getElementById("next-page").disabled = currentPage === totalPages;
+        document.getElementById("next-page").disabled =
+          currentPage === totalPages;
       }
 
       // Close the form when clicking outside of it or pressing "Esc" key
